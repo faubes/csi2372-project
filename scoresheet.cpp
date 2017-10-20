@@ -6,3 +6,11 @@
 *  github.com/agbleung
 */
 
+#include "scoresheet.h"
+
+Scoresheet(std::string player_name = ("Player " + cardcount));
+
+
+#ifdef TEST_SCORESHEET
+void main() {}
+#endif
