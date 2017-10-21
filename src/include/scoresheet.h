@@ -13,24 +13,44 @@
 #include <vector>
 #include <string>
 
+using std::iostream;
+// using std::vector;
+using std::string;
+
 class Scoresheet {
 
-static cardcount = 0;
+static int cardcount;
+static int getCount() { return cardcount; }
+
+enum class colour { red, yellow, blue };
 
 int scoresheet_array[3][12] { };
+
 int penalties = 0;
+
 std::string player_name;
 
-Scoresheet(std::string player_name = ("Player " + cardcount));
+public:
 
+// Constructor
+Scoresheet();
+Scoresheet(string str);
+
+// Copy constructor
+// Scoresheet(Scoresheet &other);
+
+// Move constructor
+// Scoresheet(Scoresheet&& other);
 
 // prints the scoresheet	
-print
-// player writes to scoresheet : requires vector of dice and position in scoresheet array
-score
-// calculate final score
-calculate_score
+//void print(std::ostream);
 
-}
+// player writes to scoresheet : requires vector of dice and position in scoresheet array
+//void score(const std::vector<Dice> roll, const Scoresheet::Colour c, const int pos);
+
+// calculate final score
+//int calculate_score();
+
+};
 
 #endif
