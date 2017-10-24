@@ -1,17 +1,18 @@
 // scoresheet.h
-/* 
+/*
 *  CSI 2372 -  Fall 2017
 *  Project
 *  github.com/faubes
 *  github.com/agbleung
 */
+
 #define TEST_SCORESHEET
 #include "scoresheet.h"
 using std::cout;
 
 int Scoresheet::cardcount = 0;
 
-SScoresheet::Scoresheet() :
+Scoresheet::Scoresheet() :
 	Scoresheet("Player")// + (++Scoresheet::cardcount)) //commented out because code needs to be revisited
 {
 	//Scoresheet::cardcount++;
@@ -32,11 +33,11 @@ Scoresheet::Scoresheet(std::string str) :
 	scoresheet_array[2][11] = -2;
 
 	//testing
-	scoresheet_array[0][4] = 10;
+	//scoresheet_array[0][4] = 10;
 }
 
 void Scoresheet::print(std::ostream& myStream)
-{	
+{
 	std::string builder;
 
 	builder = builder + "Player name: " + this->player_name + "\n" + "Card count: " + std::to_string(this->cardcount) + "\n";
@@ -132,7 +133,7 @@ void Scoresheet::print(std::ostream& myStream)
 	for (int i = 0; i < 12; i++) {
 		//boxed out on the side
 		if (this->scoresheet_array[2][i] == -2) {
-				builder = builder + "   ";
+			builder = builder + "   ";
 		}
 
 		//boxed out in the middle of sheet
@@ -181,7 +182,7 @@ void Scoresheet::print(std::ostream& myStream)
 
 int main(int argc, char **argz) {
 	std::cout << "Test Scoresheet" << std::endl;
-	
+
 	Scoresheet myScoresheet = Scoresheet();
 	myScoresheet.print(cout);
 
