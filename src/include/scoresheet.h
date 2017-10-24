@@ -19,8 +19,8 @@ using std::string;
 
 class Scoresheet {
 
-const int rows = 3;
-const int cols = 12;
+static const int rows = 3;
+static const int cols = 12;
 
 static int count;
 
