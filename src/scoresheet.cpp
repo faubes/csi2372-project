@@ -45,7 +45,7 @@ void Scoresheet::print(std::ostream& myStream)
 {
 	std::string builder;
 
-	builder = builder + "Player name: " + this->player_name + "\n" + "Card count: " + std::to_string(this->cardcount) + "\n";
+	builder = builder + "Player name: " + this->player_name + "\n" + "Card count: " + std::to_string(this->count) + "\n";
 
 	//row 0 R
 	builder = builder + "               -------------------------------\nRed:     ";
@@ -183,19 +183,6 @@ void Scoresheet::print(std::ostream& myStream)
 	myStream << builder << std::endl;
 }
 
-// print defaults to cout
-void Scoresheet::print() { print(cout); };
-
-// print object to ostream
-void Scoresheet::print(std::ostream &os) {
-	os << "Player name: " << this->player_name << endl;
-	for (int i=0; i < 3; i ++) {
-		for (int j=0; j < 12; j++) {
-			os << Scoresheet::scoresheet_array[i][j] << " ";
-		}
-		os << endl;
-	}
-};
 
 #ifdef TEST_SCORESHEET
 

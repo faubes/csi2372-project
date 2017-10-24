@@ -58,7 +58,8 @@ public:
 
 	// prints the scoresheet	
 	void print(std::ostream& myStream);
-
+	void print() { print(std::cout); }
+	
 	// player writes to scoresheet : requires vector of dice and position in scoresheet array
 	// this needs to call validate, if not okay we revert the change; 
 	// some errors here in this function definition
@@ -74,8 +75,6 @@ public:
 	// boolean validate_valid_cell();
 	
 	// prints the scoresheet	
-	void print();
-	void print(std::ostream &os);
 
 	// validate column is unique
 	// boolean validate_column();
