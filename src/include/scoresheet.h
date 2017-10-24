@@ -14,42 +14,68 @@
 #include <string>
 
 using std::iostream;
-// using std::vector;
+using std::vector;
 using std::string;
 
-class Scoresheet {
 
-static int cardcount;
-static int getCount() { return cardcount; }
-
-enum class colour { red, yellow, blue };
-
-int scoresheet_array[3][12] { };
-
-int penalties = 0;
-
-std::string player_name;
+/*class Dice {
+	// it will just house the RNG logic for dice rolling, so has no member variables
 
 public:
 
-// Constructor
-Scoresheet();
-Scoresheet(string str);
+	// Constructor
+	Dice();
 
-// Copy constructor
-// Scoresheet(Scoresheet &other);
+	// Methods probably will have a RNG that returns some number
+	void print();
+};*/
 
-// Move constructor
-// Scoresheet(Scoresheet&& other);
+class Scoresheet {
+	// just capitalizing this because Lang uses capitals in his class design
+	enum class colour { RED, YELLOW, BLUE };
+	
+	//row 0 is for RED, row 1 is for YELLOW, row 2 is for BLUE, row 3 is for failed throws
+	int scoresheet_array[4][12]{};
+	int penalties = 0;
+	std::string player_name;
 
-// prints the scoresheet	
-//void print(std::ostream);
+	static int cardcount;
+	static int getCount() { return cardcount; }
 
-// player writes to scoresheet : requires vector of dice and position in scoresheet array
-//void score(const std::vector<Dice> roll, const Scoresheet::Colour c, const int pos);
+public:
 
-// calculate final score
-//int calculate_score();
+	// Constructor
+	Scoresheet();
+	Scoresheet(string str);
+
+	// Copy constructor
+	// Scoresheet(Scoresheet &other);
+
+	// Move constructor
+	// Scoresheet(Scoresheet&& other);
+
+	// prints the scoresheet	
+	void print(std::ostream& myStream);
+
+	// player writes to scoresheet : requires vector of dice and position in scoresheet array
+	// this needs to call validate, if not okay we revert the change; 
+	// some errors here in this function definition
+	// void score(const std::vector<Dice> roll, const Scoresheet::colour c, const int pos);
+
+	// calculate final score
+	// int calculate_score();
+
+	// validate (calls other validate methods as enumerated below)
+	// boolean validate();
+
+	// validate that entry is not 'boxed out' cell (sheared ones or XX) and that cell is not already filled in (i.e. still 0)
+	// boolean validate_valid_cell();
+
+	// validate column is unique
+	// boolean validate_column();
+
+	// validate row is ascending
+	// boolean validate_row();
 
 };
 
