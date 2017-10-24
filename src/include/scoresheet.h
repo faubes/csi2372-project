@@ -17,11 +17,16 @@ using std::iostream;
 using std::vector;
 using std::string;
 
+const int rows = 3;
+const int cols = 12;
+
+static int count;
 
 /*class Dice {
 	// it will just house the RNG logic for dice rolling, so has no member variables
 
 public:
+=======
 
 	// Constructor
 	Dice();
@@ -34,8 +39,8 @@ class Scoresheet {
 	// just capitalizing this because Lang uses capitals in his class design
 	enum class colour { RED, YELLOW, BLUE };
 	
-	//row 0 is for RED, row 1 is for YELLOW, row 2 is for BLUE, row 3 is for failed throws
-	int scoresheet_array[4][12]{};
+	//row 0 is for RED, row 1 is for YELLOW, row 2 is for BLUE
+  int scoresheet_array[rows][cols] { };
 	int penalties = 0;
 	std::string player_name;
 
@@ -71,11 +76,20 @@ public:
 	// validate that entry is not 'boxed out' cell (sheared ones or XX) and that cell is not already filled in (i.e. still 0)
 	// boolean validate_valid_cell();
 
+  
 	// validate column is unique
 	// boolean validate_column();
 
 	// validate row is ascending
 	// boolean validate_row();
+
+  // prints the scoresheet	
+void print();
+void print(std::ostream &os);
+
+static int getCount() { return count; }
+
+std::string getName() { return player_name; }
 
 };
 
