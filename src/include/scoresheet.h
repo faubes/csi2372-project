@@ -72,19 +72,19 @@ public:
 	// boolean validate();
 
 	// validate that entry is not 'boxed out' cell (sheared ones or XX) and that cell is not already filled in (i.e. still 0)
-	// boolean validate_valid_cell();
+	const bool validate_cell(const int &row, const int &col);
 	
 	// prints the scoresheet	
 
 	// validate column is unique
-	// boolean validate_column();
+	const bool validate_col(const int &col);
 
 	// validate row is ascending
-	// boolean validate_row();
+	const bool validate_row(const int &row);
 
-static int getCount() { return count; }
+	static int getCount() { return count; }
 
-std::string getName() { return player_name; }
+	std::string getName() { return player_name; }
 
 };
 

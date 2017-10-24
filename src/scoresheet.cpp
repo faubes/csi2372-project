@@ -9,10 +9,12 @@
 
 #define TEST_SCORESHEET
 #include "scoresheet.h"
+#include <algorithm>
 
 using std::cout;
 using std::endl;
 using std::string;
+using std::sort;
 
 // tally of created scoresheets
 int Scoresheet::count = 0;
@@ -182,6 +184,56 @@ void Scoresheet::print(std::ostream& myStream)
 
 	myStream << builder << std::endl;
 }
+
+	// validate cell 
+	const bool Scoresheet::validate_cell(const int &row, const int &col) {
+		// only 0 entries are safe to score
+		// negatives are out of bounds, positives already contain a score
+		return this->scoresheet_array[row][col] == 0;
+	}
+	
+
+	// validate column is unique
+	const bool Scoresheet::validate_col(const int &col) {
+		bool valid = true;
+		std::vector<int> values;
+		// filter out zeroes and negatives
+		for (int i=0; i< 3; i++) {
+			if (this->scoresheet_array[i][col] > 0) {
+				values.emplace_back(this->scoresheet_array[i][col]);
+			}
+		}
+		// sort copied values so we can compare only neighbours for uniqueness
+		sort(values.begin(), values.end());
+		for (int j=0; j < values.size() -1; j++) {
+			if (values[j] == values[j+1]) {
+				valid = false;
+			}
+		
+	}
+	return valid;
+}
+
+	// validate row is ascending
+	const bool Scoresheet::validate_row(const int &row) {
+		bool valid = true;
+		std::vector<int> values;
+		// filter out zeroes and negatives
+		for (int i=0; i< 14; i++) {
+			if (this->scoresheet_array[row][i] > 0) {
+				values.emplace_back(this->scoresheet_array[row][i]);
+			}
+		}
+		// create copy of values
+		std::vector<int> original(values);
+		// sort values
+		sort(values.begin(), values.end());
+
+	// check if original == sorted
+	return original == values;
+		
+	}
+
 
 
 #ifdef TEST_SCORESHEET
