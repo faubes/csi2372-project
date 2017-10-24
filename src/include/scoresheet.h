@@ -34,6 +34,20 @@ class Scoresheet {
 	// just capitalizing this because Lang uses capitals in his class design
 	enum class colour { RED, YELLOW, BLUE };
 
+	static string get_ascii_colour(Scoresheet::colour colour) {
+		switch(colour) {
+			case Scoresheet::colour::RED:
+				return "\033[;31m";
+			case Scoresheet::colour::BLUE:
+				return "\033[;34m";
+			case Scoresheet::colour::YELLOW:
+				return "\033[;33m";
+			default:
+				return "\033[;30;40m";
+		}	
+		
+	}
+	
 //	static const int rows = 3;
 //	static const int cols = 12;
 

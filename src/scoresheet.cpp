@@ -47,137 +47,143 @@ void Scoresheet::print(std::ostream& myStream)
 {
 	std::string builder;
 
-	builder = builder + "Player name: " + this->player_name + "\n" + "Card count: " + std::to_string(this->count) + "\n";
+	builder += "Player name: " + this->player_name + "\n" + "Card count: " + std::to_string(this->count) + "\n";
 
 	//row 0 R
-	builder = builder + "               -------------------------------\nRed:     ";
+	builder += Scoresheet::get_ascii_colour(Scoresheet::colour::RED);
+	builder += "               -------------------------------\nRed:     ";
 	for (int i = 0; i < 12; i++) {
 		//boxed out on the side
 		if (this->scoresheet_array[0][i] == -2) {
 			if (i == 1) {
-				builder = builder + "   |";
+				builder += "   |";
 			}
 
 			else {
-				builder = builder + "   ";
+				builder += "   ";
 			}
 		}
 
 		//boxed out in the middle of sheet
 		else if (this->scoresheet_array[0][i] == -1) {
-			builder = builder + "XX|";
+			builder += "XX|";
 		}
 
 		//not boxed out
 		else {
 			//single digits prints like: 9| 5| with space after |
 			if (this->scoresheet_array[0][i] < 10) {
-				builder = builder + " " + std::to_string(this->scoresheet_array[0][i]);
+				builder += " " + std::to_string(this->scoresheet_array[0][i]);
 			}
 
 			//else double digit prints like: 10|11 with no space after |
 			else {
-				builder = builder + std::to_string(this->scoresheet_array[0][i]);
+				builder += std::to_string(this->scoresheet_array[0][i]);
 			}
 
 			if (i == 3 || i == 4 || i == 7 || i == 8) {
-				builder = builder + "%";
+				builder += "%";
 			}
 
 			else {
-				builder = builder + "|";
+				builder += "|";
 			}
 		}
 	}
 
-	builder = builder + "\n";
+	builder += "\n";
 
 	//row 1 B
-	builder = builder + "            ----------------------------------\nBlue:    ";
+	builder += Scoresheet::get_ascii_colour(Scoresheet::colour::BLUE); 
+	builder += "            ----------------------------------\nBlue:    ";
 	for (int i = 0; i < 12; i++) {
 		//boxed out on the side
 		if (this->scoresheet_array[1][i] == -2) {
 			if (i == 0) {
-				builder = builder + "   |";
+				builder += "   |";
 			}
 
 			else {
-				builder = builder + "   ";
+				builder += "   ";
 			}
 		}
 
 		//boxed out in the middle of sheet
 		else if (this->scoresheet_array[1][i] == -1) {
-			builder = builder + "XX|";
+			builder += "XX|";
 		}
 
 		//not boxed out
 		else {
 			//single digits prints like: 9| 5| with space after |
 			if (this->scoresheet_array[1][i] < 10) {
-				builder = builder + " " + std::to_string(this->scoresheet_array[1][i]);
+				builder += " " + std::to_string(this->scoresheet_array[1][i]);
 			}
 
 			//else double digit prints like: 10|11 with no space after |
 			else {
-				builder = builder + std::to_string(this->scoresheet_array[1][i]);
+				builder += std::to_string(this->scoresheet_array[1][i]);
 			}
 
 			if (i == 8 || i == 9) {
-				builder = builder + "%";
+				builder += "%";
 			}
 
 			else {
-				builder = builder + "|";
+				builder += "|";
 			}
 		}
 	}
 
-	builder = builder + "\n";
+	builder += "\n";
 
 	//row 3 Y
-	builder = builder + "         ----------------------------------   \nYellow:  |";
+	builder += Scoresheet::get_ascii_colour(Scoresheet::colour::YELLOW);
+	builder += "         ----------------------------------   \nYellow:  |";
 	for (int i = 0; i < 12; i++) {
 		//boxed out on the side
 		if (this->scoresheet_array[2][i] == -2) {
-			builder = builder + "   ";
+			builder += "   ";
 		}
 
 		//boxed out in the middle of sheet
 		else if (this->scoresheet_array[2][i] == -1) {
-			builder = builder + "XX|";
+			builder += "XX|";
 		}
 
 		//not boxed out
 		else {
 			//single digits prints like: 9| 5| with space after |
 			if (this->scoresheet_array[2][i] < 10) {
-				builder = builder + " " + std::to_string(this->scoresheet_array[2][i]);
+				builder += " " + std::to_string(this->scoresheet_array[2][i]);
 			}
 
 			//else double digit prints like: 10|11 with no space after |
 			else {
-				builder = builder + std::to_string(this->scoresheet_array[2][i]);
+				builder += std::to_string(this->scoresheet_array[2][i]);
 			}
 
 			if (i == 2 || i == 3 || i == 10) {
-				builder = builder + "%";
+				builder += "%";
 			}
 
 			else {
-				builder = builder + "|";
+				builder += "|";
 			}
 		}
 	}
 
+	// reset to white/black
+	builder += "\033[0m";
+	
 	//we handle the failed throws print here (i.e. row 3)
 
-	builder = builder + "\nFailed throws: ";
+	builder += "\nFailed throws: ";
 
 	for (int i = 0; i < 12; i++) {
 		if (this->penalties != 0) {
 			if (this->scoresheet_array[3][i] != 0) {
-				builder = builder + std::to_string(this->scoresheet_array[3][i]);
+				builder += std::to_string(this->scoresheet_array[3][i]);
 			}
 		}
 	}
