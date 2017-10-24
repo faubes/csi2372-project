@@ -19,12 +19,14 @@ using std::string;
 
 class Scoresheet {
 
-static int cardcount;
-static int getCount() { return cardcount; }
+const int rows = 3;
+const int cols = 12;
+
+static int count;
 
 enum class colour { red, yellow, blue };
 
-int scoresheet_array[3][12] { };
+int scoresheet_array[rows][cols] { };
 
 int penalties = 0;
 
@@ -43,13 +45,18 @@ Scoresheet(string str);
 // Scoresheet(Scoresheet&& other);
 
 // prints the scoresheet	
-//void print(std::ostream);
+void print();
+void print(std::ostream &os);
 
 // player writes to scoresheet : requires vector of dice and position in scoresheet array
 //void score(const std::vector<Dice> roll, const Scoresheet::Colour c, const int pos);
 
 // calculate final score
 //int calculate_score();
+
+static int getCount() { return count; }
+
+std::string getName() { return player_name; }
 
 };
 
