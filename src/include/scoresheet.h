@@ -51,13 +51,13 @@ public:
 	static string get_ascii_colour(Scoresheet::colour colour) {
 		switch(colour) {
 			case Scoresheet::colour::RED:
-				return "\033[;31m";
+				return "\x1b[;31m";
 			case Scoresheet::colour::BLUE:
-				return "\033[;34m";
+				return "\x1b[;34m";
 			case Scoresheet::colour::YELLOW:
-				return "\033[;33m";
+				return "\x1b[;33m";
 			default:
-				return "\033[;30;40m";
+				return "\x1b[;30;40m";
 		}		
 	}
 	
