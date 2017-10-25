@@ -238,7 +238,7 @@ const bool Scoresheet::validate_col(const int &col) {
 	// sort copied values so we can compare only neighbours for uniqueness
 	sort(values.begin(), values.end());
 
-	for (int j = 0; j < values.size(); j++) {
+	for (int j = 0; j < values.size()-1; j++) {
 		if (values[j] == values[j + 1]) {
 			valid = false;
 		}
@@ -434,7 +434,7 @@ int main(int argc, char **argz) {
 	myScoresheet.print(cout);
 
 	try {
-		myScoresheet.score(1, 0, 3);
+		myScoresheet.score(4, 2, 2);
 		myScoresheet.print(cout);
 
 		myScoresheet.score(5, 0, 2);
