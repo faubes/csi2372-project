@@ -203,15 +203,17 @@ void Scoresheet::print(std::ostream& myStream)
 	const bool Scoresheet::validate_col(const int &col) {
 		bool valid = true;
 		std::vector<int> values;
+		
 		// filter out zeroes and negatives
-		for (int i=0; i< 3; i++) {
+		for (int i = 0; i < 3; i++) {
 			if (this->scoresheet_array[i][col] > 0) {
 				values.emplace_back(this->scoresheet_array[i][col]);
 			}
 		}
 		// sort copied values so we can compare only neighbours for uniqueness
 		sort(values.begin(), values.end());
-		for (int j=0; j < values.size() -1; j++) {
+					
+		for (int j=0; j < values.size(); j++) {
 			if (values[j] == values[j+1]) {
 				valid = false;
 			}
@@ -225,11 +227,11 @@ void Scoresheet::print(std::ostream& myStream)
 		bool valid = true;
 		std::vector<int> values;
 		// filter out zeroes and negatives
-		for (int i=0; i< 14; i++) {
+		for (int i=0; i< 12; i++) {
 			if (this->scoresheet_array[row][i] > 0) {
 				values.emplace_back(this->scoresheet_array[row][i]);
 			}
-		}
+		}		
 		// create copy of values
 		std::vector<int> original(values);
 		// sort values
@@ -238,6 +240,15 @@ void Scoresheet::print(std::ostream& myStream)
 	// check if original == sorted
 	return original == values;
 		
+	}
+
+	void Scoresheet::score(const int roll, const int row, const int col) {
+		if (!this->validate_cell(row, col)) throw("Invalid cell");
+		Scoresheet tmp = *this;
+		tmp.scoresheet_array[row][col] = roll;
+		if (!tmp.validate_col(col)) throw("Invalid score: column elements not distinct.");
+		if (!tmp.validate_row(row)) throw ("Invalid score: row not ascending.");
+		*this = tmp; // copy constructor replaces old scoresheet with valid new scoresheet
 	}
 
 
@@ -249,6 +260,17 @@ int main(int argc, char **argz) {
 
 	Scoresheet myScoresheet = Scoresheet();
 	myScoresheet.print(cout);
+
+	try {
+		myScoresheet.score(1, 0, 3);
+		myScoresheet.print(cout);
+
+		myScoresheet.score(5, 0, 2);
+		myScoresheet.print(cout);
+	}
+		catch (const char * err) {
+			cout << err << endl;
+		}
 
 	//remove this eventually, for my own testing in Visual Studio because it's stupid
 	//system("PAUSE");

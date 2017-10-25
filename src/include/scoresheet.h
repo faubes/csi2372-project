@@ -31,22 +31,7 @@ public:
 
 
 class Scoresheet {
-	// just capitalizing this because Lang uses capitals in his class design
-	enum class colour { RED, YELLOW, BLUE };
 
-	static string get_ascii_colour(Scoresheet::colour colour) {
-		switch(colour) {
-			case Scoresheet::colour::RED:
-				return "\033[;31m";
-			case Scoresheet::colour::BLUE:
-				return "\033[;34m";
-			case Scoresheet::colour::YELLOW:
-				return "\033[;33m";
-			default:
-				return "\033[;30;40m";
-		}	
-		
-	}
 	
 //	static const int rows = 3;
 //	static const int cols = 12;
@@ -60,6 +45,22 @@ class Scoresheet {
 
 public:
 
+	// just capitalizing this because Lang uses capitals in his class design
+	enum class colour { RED, YELLOW, BLUE };
+
+	static string get_ascii_colour(Scoresheet::colour colour) {
+		switch(colour) {
+			case Scoresheet::colour::RED:
+				return "\033[;31m";
+			case Scoresheet::colour::BLUE:
+				return "\033[;34m";
+			case Scoresheet::colour::YELLOW:
+				return "\033[;33m";
+			default:
+				return "\033[;30;40m";
+		}		
+	}
+	
 	// Constructor
 	Scoresheet();
 	Scoresheet(string str);
@@ -78,6 +79,8 @@ public:
 	// this needs to call validate, if not okay we revert the change; 
 	// some errors here in this function definition
 	// void score(const std::vector<Dice> roll, const Scoresheet::colour c, const int pos);
+	void score(const int roll, const int row, const int col);
+
 
 	// calculate final score
 	// int calculate_score();
