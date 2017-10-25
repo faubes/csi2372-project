@@ -38,7 +38,7 @@ Scoresheet::Scoresheet(std::string str) :
 	scoresheet_array[2][4] = -1;
 	scoresheet_array[2][10] = -2;
 	scoresheet_array[2][11] = -2;
-	
+
 	for (int i = 0; i < 12; i++) {
 		scoresheet_array[3][i] = -1;
 	}
@@ -223,32 +223,12 @@ const bool Scoresheet::validate_cell(const int &row, const int &col) {
 	return this->scoresheet_array[row][col] == 0;
 }
 
-<<<<<<< Updated upstream
-	// validate column is unique
-	const bool Scoresheet::validate_col(const int &col) {
-		bool valid = true;
-		std::vector<int> values;
-		
-		// filter out zeroes and negatives
-		for (int i = 0; i < 3; i++) {
-			if (this->scoresheet_array[i][col] > 0) {
-				values.emplace_back(this->scoresheet_array[i][col]);
-			}
-		}
-		// sort copied values so we can compare only neighbours for uniqueness
-		sort(values.begin(), values.end());
-					
-		for (int j=0; j < values.size(); j++) {
-			if (values[j] == values[j+1]) {
-				valid = false;
-			}
-		
-=======
 
 // validate column is unique
 const bool Scoresheet::validate_col(const int &col) {
 	bool valid = true;
 	std::vector<int> values;
+
 	// filter out zeroes and negatives
 	for (int i = 0; i < 3; i++) {
 		if (this->scoresheet_array[i][col] > 0) {
@@ -257,32 +237,16 @@ const bool Scoresheet::validate_col(const int &col) {
 	}
 	// sort copied values so we can compare only neighbours for uniqueness
 	sort(values.begin(), values.end());
-	for (int j = 0; j < values.size() - 1; j++) {
+
+	for (int j = 0; j < values.size(); j++) {
 		if (values[j] == values[j + 1]) {
 			valid = false;
 		}
 
->>>>>>> Stashed changes
 	}
 	return valid;
 }
 
-<<<<<<< Updated upstream
-	// validate row is ascending
-	const bool Scoresheet::validate_row(const int &row) {
-		bool valid = true;
-		std::vector<int> values;
-		// filter out zeroes and negatives
-		for (int i=0; i< 12; i++) {
-			if (this->scoresheet_array[row][i] > 0) {
-				values.emplace_back(this->scoresheet_array[row][i]);
-			}
-		}		
-		// create copy of values
-		std::vector<int> original(values);
-		// sort values
-		sort(values.begin(), values.end());
-=======
 // validate row is ascending
 const bool Scoresheet::validate_row(const int &row) {
 	bool valid = true;
@@ -297,11 +261,21 @@ const bool Scoresheet::validate_row(const int &row) {
 	std::vector<int> original(values);
 	// sort values
 	sort(values.begin(), values.end());
->>>>>>> Stashed changes
 
 	// check if original == sorted
 	return original == values;
+
 }
+
+void Scoresheet::score(const int roll, const int row, const int col) {
+	if (!this->validate_cell(row, col)) throw("Invalid cell");
+	Scoresheet tmp = *this;
+	tmp.scoresheet_array[row][col] = roll;
+	if (!tmp.validate_col(col)) throw("Invalid score: column elements not distinct.");
+	if (!tmp.validate_row(row)) throw ("Invalid score: row not ascending.");
+	*this = tmp; // copy constructor replaces old scoresheet with valid new scoresheet
+}
+
 
 int Scoresheet::calculate_score() {
 	int score = 0;
@@ -363,19 +337,7 @@ int Scoresheet::calculate_score() {
 		score += bcount;
 	}
 
-<<<<<<< Updated upstream
-	void Scoresheet::score(const int roll, const int row, const int col) {
-		if (!this->validate_cell(row, col)) throw("Invalid cell");
-		Scoresheet tmp = *this;
-		tmp.scoresheet_array[row][col] = roll;
-		if (!tmp.validate_col(col)) throw("Invalid score: column elements not distinct.");
-		if (!tmp.validate_row(row)) throw ("Invalid score: row not ascending.");
-		*this = tmp; // copy constructor replaces old scoresheet with valid new scoresheet
-	}
-
-=======
 	//std::cout << score << std::endl;
->>>>>>> Stashed changes
 
 	//check if Y is filled
 	for (int i = 0; i < 12; i++) {
@@ -471,7 +433,6 @@ int main(int argc, char **argz) {
 	Scoresheet myScoresheet = Scoresheet();
 	myScoresheet.print(cout);
 
-<<<<<<< Updated upstream
 	try {
 		myScoresheet.score(1, 0, 3);
 		myScoresheet.print(cout);
@@ -479,15 +440,14 @@ int main(int argc, char **argz) {
 		myScoresheet.score(5, 0, 2);
 		myScoresheet.print(cout);
 	}
-		catch (const char * err) {
-			cout << err << endl;
-		}
-=======
+	catch (const char * err) {
+		cout << err << endl;
+	}
+
 	std::cout << "Score: " << myScoresheet.calculate_score() << std::endl;
->>>>>>> Stashed changes
 
 	//remove this eventually, for my own testing in Visual Studio because it's stupid
-	system("PAUSE");
+	//system("PAUSE");
 
 	return 0;
 }
