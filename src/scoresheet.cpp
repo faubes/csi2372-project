@@ -7,7 +7,8 @@
 *  github.com/agbleung
 */
 
-#define TEST_SCORESHEET
+// #define TEST_SCORESHEET
+
 #include "scoresheet.h"
 #include <algorithm>
 

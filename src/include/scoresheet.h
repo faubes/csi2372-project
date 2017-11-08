@@ -17,19 +17,6 @@ using std::iostream;
 using std::vector;
 using std::string;
 
-
-/*class Dice {
-// it will just house the RNG logic for dice rolling, so has no member variables
-
-public:
-// Constructor
-Dice();
-
-// Methods probably will have a RNG that returns some number
-void print();
-};*/
-
-
 class Scoresheet {
 
 
