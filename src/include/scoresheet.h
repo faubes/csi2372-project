@@ -9,85 +9,68 @@
 #ifndef SCORESHEET
 #define SCORESHEET
 
+#include "colour.h"
 #include <iostream>
-#include <vector>
 #include <string>
 
 using std::iostream;
-using std::vector;
 using std::string;
 
-class Scoresheet {
+//Base class
+//The class ScoreSheet is the abstract parent class for the two different score sheets in Qwixx and Qwinto.
 
-
-	//	static const int rows = 3;
-	//	static const int cols = 12;
-
-
-	//row 0 is for RED, row 1 is for YELLOW, row 2 is for BLUE, row 3 is for failed throws
-	int scoresheet_array[4][12]{};
-	int penalties = 0;
+class ScoreSheet {
+	// default private
+	// It needs to hold the name of the player, the number of failed attempts and the overall score.
 	std::string player_name;
-	static int count;
+	int failed_attempts = 0;
+	int total_score = 0;
+
+protected:
+	// The function score is to call the protected pure virtual function validate internally.
+	virtual bool validate()=0;
+
+	// Another function is setTotal which calls the pure virtual function calcTotal
+	virtual int calcTotal() const;
+
+	// method to be overloaded to provide polymorphic behaviour for the global << operator
+	virtual void print(std::ostream&) const;
+
+	// Finally, the not operator should be virtual and to return true if the ScoreSheet indicates that the game has ended.
+	virtual bool operator!() const;
 
 public:
+	/* A score should be entered by the function score which accepts a RollOfDice and the user selected
+		colour and position counted from the left.The position should have a default parameter of - 1 which is to
+		mean that the position info is not used when the game Qwixx is played.Score is to return a boolean
+		indicating if the Dice can be scored.*/
+	// this will call pure virtual validate() internally
+	bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
 
-	// just capitalizing this because Lang uses capitals in his class design
-	enum class colour { RED, YELLOW, BLUE };
-
-	static string get_ascii_colour(Scoresheet::colour colour) {
-		switch (colour) {
-			case Scoresheet::colour::RED:
-				return "\x1b[;31m";
-			case Scoresheet::colour::BLUE:
-				return "\x1b[;34m";
-			case Scoresheet::colour::YELLOW:
-				return "\x1b[;33m";
-			default:
-				return "\x1b[;30;40m";
-		}
+	/* Another function is setTotal which calls the pure virtual function calcTotal, 
+		sets and returns the points for the final score.*/
+	// calls pure virtual calcTotal, sets total, returns total
+	int setTotal() {
+		total_score = calcTotal();
+		return total_score;
 	}
 
-	// Constructor
-	Scoresheet();
-	Scoresheet(string str);
-
-	// Copy constructor
-	// Scoresheet(Scoresheet &other);
-
-	// Move constructor
-	// Scoresheet(Scoresheet&& other);
-
-	// prints the scoresheet	
-	void print(std::ostream& myStream);
-	void print() { print(std::cout); }
-
-	// player writes to scoresheet : requires vector of dice and position in scoresheet array
-	// this needs to call validate, if not okay we revert the change; 
-	// some errors here in this function definition
-	// void score(const std::vector<Dice> roll, const Scoresheet::colour c, const int pos);
-	void score(const int roll, const int row, const int col);
-
-
-	// calculate final score
-	int calculate_score();
-
-	// validate (calls other validate methods as enumerated below)
-	// boolean validate();
-
-	// validate that entry is not 'boxed out' cell (sheared ones or XX) and that cell is not already filled in (i.e. still 0)
-	const bool validate_cell(const int &row, const int &col);
-
-	// validate column is unique
-	const bool validate_col(const int &col);
-
-	// validate row is ascending
-	const bool validate_row(const int &row);
-
-	static int getCount() { return count; }
-
-	std::string getName() { return player_name; }
-
+	/* You need to overload the insertion operator for
+		the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
+		there is no polymorphism for global operators and functions.*/
+	friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet);
 };
+
+/* You need to overload the insertion operator for
+the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
+there is no polymorphism for global operators and functions.*/
+std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
+	scoresheet.print(os);
+	return os;
+}
+
+// children
+// QwintoScoreSheet
+// QwixxScoreSheet
 
 #endif
