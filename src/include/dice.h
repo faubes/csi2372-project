@@ -6,14 +6,24 @@
 *  github.com/agbleung
 */
 
+#ifndef DICE
+#define DICE
+
 #include "randomdice.h"
 #include "colour.h"
+#include <iostream>
+
+using std::ostream;
 
 class Dice {
-	const Colour c;
+	Colour c;
 	int face;
-	// Dice();
-	Dice(const Colour _c);
-	roll();
-	friend ostream& operator<<(ostream& os, const Dice& d);
-}
+	
+	public:
+		Dice();
+		Dice(const Colour _c);
+		void roll();
+		friend ostream& operator<<(ostream& os, const Dice& d);
+};
+
+#endif

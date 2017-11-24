@@ -5,13 +5,14 @@
 *  github.com/faubes
 *  github.com/agbleung
 */	
-	
-Dice::Dice(const Colour _c) {
-	c = _c;
-	face = 0;
-}
 
-Dice::roll() {
+#include "dice.h"
+
+Dice::Dice() {}
+
+Dice::Dice(const Colour _c) : c(_c), face(0) {}
+
+void Dice::roll() {
 	face = RandomDice::get();
 }
 

@@ -7,8 +7,7 @@
 *  github.com/agbleung
 */
 
-#define TEST_RANDOMDICE
-
+// #define TEST_RANDOMDICE
 #include "randomdice.h"
 #include <random>
 	
