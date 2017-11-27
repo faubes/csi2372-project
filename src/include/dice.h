@@ -20,7 +20,7 @@ class Dice {
 	int face;
 	
 	public:
-		Dice();
+		// Dice();
 		Dice(const Colour _c);
 		void roll();
 		friend ostream& operator<<(ostream& os, const Dice& d);

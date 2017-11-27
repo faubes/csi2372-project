@@ -8,7 +8,7 @@
 
 #include "dice.h"
 
-Dice::Dice() {}
+// Dice::Dice() {}
 
 Dice::Dice(const Colour _c) : c(_c), face(0) {}
 

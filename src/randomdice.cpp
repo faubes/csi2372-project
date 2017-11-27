@@ -7,7 +7,6 @@
 *  github.com/agbleung
 */
 
-// #define TEST_RANDOMDICE
 #include "randomdice.h"
 #include <random>
 	
@@ -23,11 +22,3 @@
 		return RandomDice::dis(RandomDice::gen);
 	}
 	
-#ifdef TEST_RANDOMDICE
-#include <iostream>
-int main() {
-    for (int n=0; n<10; ++n)
-        std::cout << RandomDice::get() << ' ';
-    std::cout << '\n';
-}
-#endif

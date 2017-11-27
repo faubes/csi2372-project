@@ -34,7 +34,7 @@ class RollOfDice {
 	const_iterator cbegin() const { return rod.cbegin(); }
 	const_iterator cend() const { return rod.cend(); }
   
-	friend ostream& operator<<(ostream& os, const Dice& d);
+	friend ostream& operator<<(ostream& os, const RollOfDice& rod);
 	
 };
 
