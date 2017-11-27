@@ -1,4 +1,3 @@
-
 // randomdice.h
 /*
 *  CSI 2372 -  Fall 2017
