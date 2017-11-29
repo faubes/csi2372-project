@@ -11,11 +11,9 @@ class QwintoScoreSheet : public ScoreSheet {
 		QwintoRow<Colour::RED> redRow;
 		QwintoRow<Colour::YELLOW> yellowRow;
 		QwintoRow<Colour::BLUE> blueRow;
-		
-		//needs to overload virtual void print(std::ostream&) const;
-		friend std::ostream& operator<<(std::ostream& os, const QwintoScoreSheet& qss);
 
 	public:
+		void print(std::ostream& myStream) const;
 		QwintoScoreSheet();
 		int calcTotal();
 		bool validate();

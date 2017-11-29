@@ -8,6 +8,7 @@
 #include "colour.h"
 #include "randomdice.h"
 #include "rollofdice.h"
+#include "scoresheet.h"
 #include "qwintorow.h"
 #include "qwintoscoresheet.h"
 #include <iostream>
@@ -66,8 +67,9 @@ int main() {
 #endif
 
 #ifdef TEST_QWINTO_SCORESHEET
-	QwintoScoreSheet myScoresheet;
-	std::cout << myScoresheet;
+	QwintoScoreSheet qws;
+	ScoreSheet& ss = qws;
+	std::cout << ss;
 #endif
 
 	//for stupid Visual Studio

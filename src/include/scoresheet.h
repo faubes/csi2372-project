@@ -26,7 +26,7 @@ class ScoreSheet {
 	std::string player_name;
 	int failed_attempts = 0;
 	int total_score = 0;
-
+		
 protected:
 	// The function score is to call the protected pure virtual function validate internally.
 	virtual bool validate()=0;

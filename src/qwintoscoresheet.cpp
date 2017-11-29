@@ -11,11 +11,10 @@ bool QwintoScoreSheet::validate() {
 	return false;
 }
 
-std::ostream& operator<<(std::ostream& os, const QwintoScoreSheet& qss) {
+void QwintoScoreSheet::print(std::ostream& os) const {
 	std::stringstream output;
-	output << qss.redRow;
-	output << qss.yellowRow;
-	output << qss.blueRow;
+	output << redRow;
+	output << yellowRow;
+	output << blueRow;
 	os << output.str(); 
-	return os;
 }
