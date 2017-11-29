@@ -2,9 +2,9 @@
 // main file with game loop, tests
 
 
-/*#define TEST_COLOUR
-#define TEST_RANDOMDICE
-#define TEST_ROLLOFDICE*/
+//#define TEST_COLOUR
+//#define TEST_RANDOMDICE
+#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
 #define TEST_QWINTO_SCORESHEET
 
@@ -36,6 +36,7 @@ int main() {
 	RollOfDice rd(colours2);
 	rd.roll();
 	std::cout << rd << std::endl;
+	std::cout << "Total value: " << static_cast<int>(rd) << std::endl;
 #endif
 
 #ifdef TEST_QWINTO_ROW

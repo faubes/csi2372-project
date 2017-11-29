@@ -20,10 +20,16 @@ class RollOfDice {
 	std::vector<Dice> rod;
 
 public:
-
+	RollOfDice();
 	RollOfDice(const std::vector<Colour> &colours);
+	
+	void addDice(const Colour &colour);
+	
+	RollOfDice getPair(const std::vector<Colour> &colours);
+	
 	void roll();
 
+	// methods needed to enable range loops over RoD
 	using iterator = std::vector<Dice>::iterator;
 	using const_iterator = std::vector<Dice>::const_iterator;
 
@@ -33,6 +39,9 @@ public:
 	const_iterator end() const { return rod.end(); }
 	const_iterator cbegin() const { return rod.cbegin(); }
 	const_iterator cend() const { return rod.cend(); }
+	
+	// converts roll to int by summing face values
+	operator int();
 
 	friend ostream& operator<<(ostream& os, const RollOfDice& rod);
 

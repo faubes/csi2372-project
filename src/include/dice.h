@@ -16,7 +16,7 @@
 using std::ostream;
 
 class Dice {
-	Colour c;
+	const Colour c;
 	int face;
 
 	public:
@@ -24,6 +24,8 @@ class Dice {
 		Dice(const Colour _c);
 		void roll();
 		friend ostream& operator<<(ostream& os, const Dice& d);
+		Colour getColour() { return c; }
+		int getValue() { return face; }
 };
 
 #endif
