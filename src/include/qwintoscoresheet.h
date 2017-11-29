@@ -8,13 +8,14 @@
 using std::vector;
 
 class QwintoScoreSheet : public ScoreSheet {
+		QwintoRow<Colour::RED> redRow;
+		QwintoRow<Colour::YELLOW> yellowRow;
+		QwintoRow<Colour::BLUE> blueRow;
+		
+		//needs to overload virtual void print(std::ostream&) const;
+		friend std::ostream& operator<<(std::ostream& os, const QwintoScoreSheet& qss);
+
 	public:
-	//holds three QwintoRow (RED, YELLOW, BLUE)
-	std::vector< QwintoRow <Colour> > scoreSheetRows;
-
-	//needs to overload virtual void print(std::ostream&) const;
-
-	//public:
 		QwintoScoreSheet();
 		int calcTotal();
 		bool validate();

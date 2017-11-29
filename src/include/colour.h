@@ -10,16 +10,22 @@ static std::string colour_to_string(const Colour c) {
 	switch (c) {
 	case Colour::RED:
 		return "Red";
+		break;
 	case Colour::YELLOW:
 		return "Yellow";
+		break;
 	case Colour::BLUE:
 		return "Blue";
+		break;
 	case Colour::GREEN:
 		return "Green";
+		break;
 	case Colour::WHITE:
 		return "White";
+		break;
 	default:
 		return "Invalid colour!";
+		break;
 	}
 }
 
