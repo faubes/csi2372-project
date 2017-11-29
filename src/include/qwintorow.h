@@ -97,9 +97,9 @@ std::ostream& operator<<(std::ostream& os, const QwintoRow<C>& qr) {
 			line3 << "----";
 		}
 	}
-	os << "\t" << line1.str() << std::endl; 
-	os << "\t" << line2.str() << std::endl;
-	os << "\t" << line3.str() << std::endl;
+	os << std::left << std::setw(10) << "" << line1.str() << std::endl; 
+	os << std::setw(10) << qr.getColour() << line2.str() << std::endl;
+	os << std::setw(10) << "" << line3.str() << std::endl;
 	return os;
 }
 
