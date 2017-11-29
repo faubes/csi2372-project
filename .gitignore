@@ -2,6 +2,9 @@
 
 /build/*
 
+# no dump file
+core
+
 # Prerequisites
 *.d
 
