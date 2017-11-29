@@ -10,12 +10,12 @@
 #include "rollofdice.h"
 
 RollOfDice::RollOfDice(const std::vector<Colour> &colours) :
- rod(std::vector<Dice>()) {
-		for (c : colours) {
+	rod(std::vector<Dice>()) {
+	for (Colour c : colours) {
 		rod.emplace_back(Dice(c));
 	}
 }
-		
+
 void RollOfDice::roll() {
 	for (auto& d : rod) {
 		d.roll();

@@ -10,6 +10,7 @@
 #define SCORESHEET
 
 #include "colour.h"
+#include "rollofdice.h"
 #include <iostream>
 #include <string>
 
@@ -31,10 +32,10 @@ protected:
 	virtual bool validate()=0;
 
 	// Another function is setTotal which calls the pure virtual function calcTotal
-	virtual int calcTotal() const;
+	virtual int calcTotal()=0;
 
 	// method to be overloaded to provide polymorphic behaviour for the global << operator
-	virtual void print(std::ostream&) const;
+	virtual void print(std::ostream& myStream) const;
 
 	// Finally, the not operator should be virtual and to return true if the ScoreSheet indicates that the game has ended.
 	virtual bool operator!() const;
@@ -55,19 +56,15 @@ public:
 		return total_score;
 	}
 
+	//https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
 	/* You need to overload the insertion operator for
 		the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
 		there is no polymorphism for global operators and functions.*/
-	friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet);
+	friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
+		scoresheet.print(os);
+		return os;
+	}
 };
-
-/* You need to overload the insertion operator for
-the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
-there is no polymorphism for global operators and functions.*/
-std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
-	scoresheet.print(os);
-	return os;
-}
 
 // children
 // QwintoScoreSheet

@@ -9,10 +9,13 @@
 // The class QwintoPlayer holds a QwintoScoreSheet and implements the functions
 // inputBeforeRoll and inputAfterRoll.
 
+#pragma once
 
-QwintoPlayer::QwintoPlayer(const std::string& name) : Player::Player(name) {
-	
+#include "qwintoplayer.h"
+
+/*QwintoPlayer::QwintoPlayer(const std::string& name) : Player::Player(name) {
+
 }
 
 void QwintoPlayer::inputBeforeRoll(RollOfDice& rod);
-void QwintoPlayer::inputAfterRoll(RollOfDice& rod);
+void QwintoPlayer::inputAfterRoll(RollOfDice& rod);*/

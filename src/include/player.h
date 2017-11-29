@@ -16,10 +16,11 @@
 
 class Player {
 	bool active = false;
-	std::string
+	std::string s;
+	
 	public:
-	virtual void inputBeforeRoll(RollOfDice& rod);
-	virtual void inputAfterRoll(RollOfDice& rod);
-}
+		virtual void inputBeforeRoll(RollOfDice& rod);
+		virtual void inputAfterRoll(RollOfDice& rod);
+};
 
 #endif

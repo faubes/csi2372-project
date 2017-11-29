@@ -29,8 +29,8 @@
 class RandomDice {
 
 	static std::random_device rd;  //Will be used to obtain a seed for the random number engine
-    static std::mt19937_64 gen; //Standard mersenne_twister_engine seeded with rd()
-    static std::uniform_int_distribution<int> dis;
+	static std::mt19937_64 gen; //Standard mersenne_twister_engine seeded with rd()
+	static std::uniform_int_distribution<int> dis;
 public:
 	static int get();
 };

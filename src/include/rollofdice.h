@@ -19,8 +19,8 @@ using std::ostream;
 class RollOfDice {
 	std::vector<Dice> rod;
 
-	public:
-	
+public:
+
 	RollOfDice(const std::vector<Colour> &colours);
 	void roll();
 
@@ -33,9 +33,9 @@ class RollOfDice {
 	const_iterator end() const { return rod.end(); }
 	const_iterator cbegin() const { return rod.cbegin(); }
 	const_iterator cend() const { return rod.cend(); }
-  
+
 	friend ostream& operator<<(ostream& os, const RollOfDice& rod);
-	
+
 };
 
 #endif

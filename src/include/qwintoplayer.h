@@ -12,8 +12,8 @@
 #include "player.h"
 #include "qwintoscoresheet.h"
 
-class QwintoPlayer : public Player {
+/*class QwintoPlayer : public Player {
 	QwintoScoreSheet scoresheet;
 	void inputBeforeRoll(RollOfDice& rod);
 	void inputAfterRoll(RollOfDice& rod);
-}
+};*/

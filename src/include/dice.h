@@ -18,7 +18,7 @@ using std::ostream;
 class Dice {
 	Colour c;
 	int face;
-	
+
 	public:
 		// Dice();
 		Dice(const Colour _c);
