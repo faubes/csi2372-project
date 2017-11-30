@@ -12,5 +12,6 @@ bool ScoreSheet::operator!() const {
 }
 
 bool ScoreSheet::score(RollOfDice roll, Colour c, int position) {
+	std::cout << "Score from ScoreSheet and no children" << std::endl;
 	return false;
 }

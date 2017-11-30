@@ -29,7 +29,7 @@ class ScoreSheet {
 		
 protected:
 	// The function score is to call the protected pure virtual function validate internally.
-	virtual bool validate()=0;
+	virtual bool validate(RollOfDice roll, Colour c, int position)=0;
 
 	// Another function is setTotal which calls the pure virtual function calcTotal
 	virtual int calcTotal()=0;

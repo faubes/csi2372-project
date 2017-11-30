@@ -12,11 +12,14 @@ class QwintoScoreSheet : public ScoreSheet {
 		QwintoRow<Colour::YELLOW> yellowRow;
 		QwintoRow<Colour::BLUE> blueRow;
 
-	public:
 		void print(std::ostream& myStream) const;
-		QwintoScoreSheet();
 		int calcTotal();
-		bool validate();
+		// The function score is to call the protected pure virtual function validate internally.
+		bool validate(RollOfDice roll, Colour c, int position);
+		bool operator!() const;
+	public:
+		QwintoScoreSheet();
+		bool score(RollOfDice roll, Colour c, int position);
 };
 
 #endif

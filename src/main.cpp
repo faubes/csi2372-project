@@ -1,7 +1,7 @@
 // main file with game loop, tests
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
-//#define TEST_ROLLOFDICE
+#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
 #define TEST_QWINTO_SCORESHEET
 
@@ -39,37 +39,30 @@ int main() {
 
 #ifdef TEST_QWINTO_ROW
 	//Test creation of a RED row
-	QwintoRow<Colour> myRed(Colour::RED);
-	std::cout << myRed.getColour() << std::endl;
+	QwintoRow<Colour::RED> redRow;
+
+	std::cout << redRow.validate(rd, 3) << std::endl;
+
+	std::cout << redRow.validate(rd, 2) << std::endl;
+	
+	//array should remain the same
+	std::cout << redRow.getColour() << std::endl;
 	for (int i = 0; i < 12; i++) {
-		std::cout << myRed[i];
+		std::cout << redRow[i];
 	}
 
 	std::cout << std::endl;
 
-	//Test creation of a YELLOW row
-	QwintoRow<Colour> myYellow(Colour::YELLOW);
-	std::cout << myYellow.getColour() << std::endl;
-	for (int i = 0; i < 12; i++) {
-		std::cout << myYellow[i];
-	}
-
-	std::cout << std::endl;
-
-	//Test creation of a BLUE row
-	QwintoRow<Colour> myBlue(Colour::BLUE);
-	std::cout << myBlue.getColour() << std::endl;
-	for (int i = 0; i < 12; i++) {
-		std::cout << myBlue[i];
-	}
-
-	std::cout << std::endl;
 #endif
 
 #ifdef TEST_QWINTO_SCORESHEET
 	QwintoScoreSheet qws;
 	ScoreSheet& ss = qws;
-	std::cout << ss;
+
+	//calling from ss gives parent class for score()
+	std::cout << "Score (T/F): " << qws.score(rd,Colour::RED,2) << std::endl;
+	std::cout << qws << std::endl;
+
 #endif
 
 	//for stupid Visual Studio

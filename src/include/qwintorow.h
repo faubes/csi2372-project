@@ -26,7 +26,14 @@ class QwintoRow {
 	public:
 		//constructor
 		QwintoRow();
-		//bool validate(const RollOfDice myRoll, const int index);
+		//destructor
+		//~QwintoRow();
+		//copy constructor
+		//QwintoRow(QwintoRow& other);
+		//copy assignment
+		//QwintoRow& operator= (const QwintoRow& other);
+		
+		bool validate(RollOfDice myRoll, const int index);
 		
 		std::string getColour() const;
 
@@ -60,14 +67,19 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 	if (C == Colour::RED) {
 		qwintoArray[0] = -1;
 		qwintoArray[1] = -1;
+		qwintoArray[5] = -1;
+		//for validation testing purposes
+		//qwintoArray[3] = 1;
 	}
 
 	else if (C == Colour::YELLOW) {
 		qwintoArray[0] = -1;
+		qwintoArray[6] = -1;
 		qwintoArray[11] = -1;
 	}
 
 	else if (C == Colour::BLUE) {
+		qwintoArray[4] = -1;
 		qwintoArray[10] = -1;
 		qwintoArray[11] = -1;
 	}
@@ -80,22 +92,71 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 template <Colour C>
 std::ostream& operator<<(std::ostream& os, const QwintoRow<C>& qr) {
 	std::stringstream line1, line2, line3;
+
+	int counter = 0;
+
 	for (auto &x : qr) {
 		if (x == -1) {
-			line1 << "    ";
-			line2 << "    ";
-			line3 << "    ";
-		}
-		else if (x == 0 ) {
-			line1 << "----";
-			line2 << "|  |";
-			line3 << "----";
+			if (((qr.getColour() == "Red") && (counter == 5)) || ((qr.getColour() == "Yellow") && (counter == 6))
+				|| ((qr.getColour() == "Blue") && (counter == 4))) {
+				line1 << "----";
+				line2 << " XX|";
+				line3 << "----";
+			}
+			else {
+				line1 << "    ";
+				line2 << "    ";
+				line3 << "    ";
+			}
 		}
 		else {
-			line1 << "----";
-			line2 << "|" << std::setw(2) << x << "|";
-			line3 << "----";
+			char endCell;
+
+			if (((qr.getColour() == "Red") && ((counter == 2) || (counter == 3) || (counter == 6) || (counter == 7))) ||
+				((qr.getColour() == "Yellow") && ((counter == 7) || (counter == 8))) ||
+				((qr.getColour() == "Blue") && ((counter == 1) || (counter == 2) || (counter == 8) || (counter == 9)))) {
+				endCell = '%';
+			}
+
+			else {
+				endCell = '|';
+			}
+
+
+			if (x == 0) {
+				if (((qr.getColour() == "Red") && (counter == 2)) ||
+					((qr.getColour() == "Yellow") && (counter == 1)) ||
+					((qr.getColour() == "Blue") && (counter == 0))) {
+					line1 << "----";
+					line2 << "|  " << endCell;
+					line3 << "----";
+				}
+
+				else {
+					line1 << "----";
+					line2 << "   " << endCell;
+					line3 << "----";
+				}
+			}
+
+			else {
+				if (((qr.getColour() == "Red") && (counter == 2)) ||
+					((qr.getColour() == "Yellow") && (counter == 1)) ||
+					((qr.getColour() == "Blue") && (counter == 0))) {
+					line1 << "----";
+					line2 << "|" << std::setw(2) << x << endCell;
+					line3 << "----";
+				}
+
+				else {
+					line1 << "----";
+					line2 << " " << std::setw(2) << x << endCell;
+					line3 << "----";
+				}
+			}
 		}
+
+		counter++;
 	}
 	os << std::left << std::setw(10) << "" << line1.str() << std::endl; 
 	os << std::setw(10) << qr.getColour() << line2.str() << std::endl;
@@ -107,6 +168,33 @@ std::ostream& operator<<(std::ostream& os, const QwintoRow<C>& qr) {
 template <const Colour C>
 std::string QwintoRow<C>::getColour() const {
 	return colour_to_string(colour);
+}
+
+template <const Colour C>
+bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
+	if (qwintoArray[index] != 0) {
+		return false;
+	}
+
+	std::array<int, 12> temp = qwintoArray;
+
+	temp[index] = static_cast<int>(myRoll);
+	
+	std::vector<int> values;
+
+	// filter out zeroes and negatives
+	for (int i = 0; i < 12; i++) {
+		if (temp[i] > 0) {
+			values.emplace_back(temp[i]);
+		}
+	}
+	// create copy of values
+	std::vector<int> original(values);
+	// sort values
+	sort(values.begin(), values.end());
+
+	// check if original == sorted
+	return original == values;
 }
 
 #endif
