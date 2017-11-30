@@ -14,6 +14,7 @@
 #include <array>
 #include <sstream>
 #include <iomanip>
+#include <algorithm>
 
 template <const Colour C> 
 class QwintoRow {
@@ -191,7 +192,7 @@ bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
 	// create copy of values
 	std::vector<int> original(values);
 	// sort values
-	sort(values.begin(), values.end());
+	std::sort(values.begin(), values.end());
 
 	// check if original == sorted
 	return original == values;
