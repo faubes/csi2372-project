@@ -41,7 +41,7 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
 	if (this->qws.isFailedThrow(rod)) {
 		if (isActive()) {
 			std::cout << "Uh oh! Failed throw!" << std::endl;
-			this->qws.incrementFailedThrows();
+			// this->qws.incrementFailedThrows();
 			this->setActive(false);
 		} else {
 			std::cout << "Too bad. You can't use this roll." << std::endl;
@@ -49,7 +49,22 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
 		return;
 	}
 	bool valid = false;
+	Colour c;
 	while (!valid) {
-			
+		for (const auto& d: rod ) {
+			c = d.getColour();
+			std::string msg("Add score to "+ colour_to_string(c) + " row?");
+			if (getYesNo(std::cout, std::cin, msg)) {
+				valid = true;
+				break;
+			}
+		}
+		std::cout << "You need to enter a score into one of the rows." << std::endl;
 	}
+	int i = getInt(std::cout, std::cin, 0, 11);
+	this->qws.score(rod, c, i);
+}
+
+void QwintoPlayer::print(std::ostream& os) const {
+	os << this->qws;
 }

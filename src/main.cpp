@@ -3,8 +3,8 @@
 //#define TEST_RANDOMDICE
 //#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
-#define TEST_QWINTO_SCORESHEET
-//#define TEST_QWINTOPLAYER
+//#define TEST_QWINTO_SCORESHEET
+#define TEST_QWINTOPLAYER
 
 #include "colour.h"
 #include "randomdice.h"
@@ -74,6 +74,8 @@ int main() {
 	RollOfDice rod;
 	qp.inputBeforeRoll(rod);
 	std::cout << rod;
+	qp.inputAfterRoll(rod);
+	std::cout << qp;
 #endif
 	//for stupid Visual Studio
 	system("Pause");

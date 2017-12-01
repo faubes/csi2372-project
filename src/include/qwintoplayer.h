@@ -18,6 +18,7 @@ class QwintoPlayer : public Player {
 	QwintoPlayer(const std::string& name);
 	void inputBeforeRoll(RollOfDice& rod);
 	void inputAfterRoll(const RollOfDice& rod);
+	void print(std::ostream& myStream) const;
 };
 
 #endif

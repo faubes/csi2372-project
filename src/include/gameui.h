@@ -35,3 +35,18 @@ bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
 	return res;
 }
 
+bool getInt(std::ostream& os, std::istream& is, int low, int high) {
+	int res;
+	for (;;) {
+	os << "Which position in that row? " << "[" << low << ".." << high << "]: ";
+		if (is >> res) {
+			if (res >= low & res <= high) {
+				break;
+			}
+		os << "That's not a valid position" << std::endl;
+		is.clear();
+		}
+	}
+	return res;
+}
+
