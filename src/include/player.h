@@ -15,16 +15,16 @@
 #include "rollofdice.h"
 
 class Player {
-	protected:
+protected:
 	bool active = false;
 	std::string name;
-	
-	public:
-		Player(const std::string& n) : name(n) {}
-		virtual void inputBeforeRoll(RollOfDice& rod) = 0;
-		virtual void inputAfterRoll(RollOfDice& rod) = 0;
-		void setActive(bool b) { active = b; }
-		bool isActive() const { return active; }
+
+public:
+	Player(const std::string& n) : name(n) {}
+	virtual void inputBeforeRoll(RollOfDice& rod) = 0;
+	virtual void inputAfterRoll(RollOfDice& rod) = 0;
+	void setActive(bool b) { active = b; }
+	bool isActive() const { return active; }
 };
 
 #endif

@@ -12,9 +12,9 @@
 #include "player.h"
 #include "qwintoscoresheet.h"
 
-class QwintoPlayer : public Player { 
+class QwintoPlayer : public Player {
 	QwintoScoreSheet qws;
-	public:
+public:
 	QwintoPlayer(const std::string& name);
 	void inputBeforeRoll(RollOfDice& rod);
 	void inputAfterRoll(const RollOfDice& rod);

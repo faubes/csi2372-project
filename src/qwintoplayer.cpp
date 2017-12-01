@@ -21,17 +21,18 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
 	bool valid = false;
 	while (!valid) {
 		for (Colour c : qwintoColours) {
-			std::string msg("Roll "+ colour_to_string(c) + " dice?");
+			std::string msg("Roll " + colour_to_string(c) + " dice?");
 			if (getYesNo(std::cout, std::cin, msg)) {
 				colours.emplace_back(c);
 			}
 		}
-	if (colours.size() == 0) {
-		std::cout << "You need to roll at least one dice!" << std::endl;
-	} else {
-		valid = true;
-		rod = RollOfDice(colours);
-		rod.roll();
+		if (colours.size() == 0) {
+			std::cout << "You need to roll at least one dice!" << std::endl;
+		}
+		else {
+			valid = true;
+			rod = RollOfDice(colours);
+			rod.roll();
 		}
 	}
 	this->setActive(true);
@@ -43,13 +44,14 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
 			std::cout << "Uh oh! Failed throw!" << std::endl;
 			this->qws.incrementFailedThrows();
 			this->setActive(false);
-		} else {
+		}
+		else {
 			std::cout << "Too bad. You can't use this roll." << std::endl;
 		}
 		return;
 	}
 	bool valid = false;
 	while (!valid) {
-			
+
 	}
 }

@@ -24,10 +24,13 @@ class ScoreSheet {
 	// default private
 	// It needs to hold the name of the player, the number of failed attempts and the overall score.
 	std::string name;
-	int failed_attempts = 0;
+	int failed_throws = 0;
 	int total_score = 0;
 		
 protected:
+	//check if a column is filled
+	virtual bool col_complete(int col);
+
 	// The function score is to call the protected pure virtual function validate internally.
 	virtual bool validate(RollOfDice roll, Colour c, int position)=0;
 
@@ -59,7 +62,17 @@ public:
 	}
 
 	virtual bool isFailedThrow(const RollOfDice& rod) const = 0;
-	
+
+	//increment failed throw
+	void incrementFailedThrows() {
+		failed_throws++;
+	}
+
+	//get failed throw
+	int getFailedThrows() {
+		return failed_throws;
+	}
+
 	//https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
 	/* You need to overload the insertion operator for
 		the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
