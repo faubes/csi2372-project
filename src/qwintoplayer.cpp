@@ -31,6 +31,7 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
 	} else {
 		valid = true;
 		rod = RollOfDice(colours);
+		rod.roll();
 		}
 	}
 }

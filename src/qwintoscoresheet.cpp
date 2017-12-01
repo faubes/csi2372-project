@@ -141,3 +141,10 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 
 	return ((valid_row == true) && (valid_col == true));
 }
+
+bool QwintoScoreSheet::checkForFailedThrow(const RollOfDice& rod) {
+	int sum = rod;
+	for (const auto& d : rod) {
+		
+	}
+}

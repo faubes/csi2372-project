@@ -12,6 +12,7 @@
 #include "scoresheet.h"
 #include "qwintorow.h"
 #include "qwintoscoresheet.h"
+#include "qwintoplayer.h"
 #include <iostream>
 
 
@@ -67,8 +68,10 @@ int main() {
 #endif
 
 #ifdef TEST_QWINTOPLAYER
-
-	
+	QwintoPlayer qp("Joe");
+	RollOfDice rod;
+	qp.inputBeforeRoll(rod);
+	std::cout << rod;
 #endif
 	//for stupid Visual Studio
 	system("Pause");
