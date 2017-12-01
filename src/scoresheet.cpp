@@ -3,6 +3,8 @@
 //Base class
 //The class ScoreSheet is the abstract parent class for the two different score sheets in Qwixx and Qwinto.
 
+ScoreSheet::ScoreSheet(const std::string& n) : name(n) {}
+
 void ScoreSheet::print(std::ostream& myStream) const {
 	//do nothing
 }

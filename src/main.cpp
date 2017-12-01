@@ -1,9 +1,10 @@
 // main file with game loop, tests
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
-#define TEST_ROLLOFDICE
+//#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
-#define TEST_QWINTO_SCORESHEET
+//#define TEST_QWINTO_SCORESHEET
+#define TEST_QWINTOPLAYER
 
 #include "colour.h"
 #include "randomdice.h"
@@ -65,6 +66,10 @@ int main() {
 
 #endif
 
+#ifdef TEST_QWINTOPLAYER
+
+	
+#endif
 	//for stupid Visual Studio
 	system("Pause");
 }

@@ -10,10 +10,31 @@
 // inputBeforeRoll and inputAfterRoll.
 
 #include "qwintoplayer.h"
+#include "gameui.h"
+#include "colour.h"
+#include <string>
 
-/*QwintoPlayer::QwintoPlayer(const std::string& name) : Player::Player(name) {
+QwintoPlayer::QwintoPlayer(const std::string& n) : Player(n), qws(n) {}
 
+void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
+	std::vector<Colour> colours;
+	bool valid = false;
+	while (!valid) {
+		for (Colour c : qwintoColours) {
+			std::string msg("Roll "+ colour_to_string(c) + " dice?");
+			if (getYesNo(std::cout, std::cin, msg)) {
+				colours.emplace_back(c);
+			}
+		}
+	if (colours.size() == 0) {
+		std::cout << "You need to roll at least one dice!" << std::endl;
+	} else {
+		valid = true;
+		rod = RollOfDice(colours);
+		}
+	}
 }
 
-void QwintoPlayer::inputBeforeRoll(RollOfDice& rod);
-void QwintoPlayer::inputAfterRoll(RollOfDice& rod);*/
+void QwintoPlayer::inputAfterRoll(RollOfDice& rod) {
+	
+}

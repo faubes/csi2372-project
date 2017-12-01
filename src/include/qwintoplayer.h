@@ -6,19 +6,18 @@
 *  github.com/agbleung
 */
 
-// The class QwintoPlayer holds a QwintoScoreSheet and implements the functions
-// inputBeforeRoll and inputAfterRoll.
+#ifndef QWINTOPLAYER
+#define QWINTOPLAYER
 
-#ifndef PLAYER
-#define PLAYER
+#include "player.h"
+#include "qwintoscoresheet.h"
 
-// #include "player.h"
-// #include "qwintoscoresheet.h"
-
-/*class QwintoPlayer : public Player {
-	QwintoScoreSheet scoresheet;
+class QwintoPlayer : public Player { 
+	QwintoScoreSheet qws;
+	public:
+	QwintoPlayer(const std::string& name);
 	void inputBeforeRoll(RollOfDice& rod);
 	void inputAfterRoll(RollOfDice& rod);
-};*/
+};
 
 #endif

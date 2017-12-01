@@ -18,7 +18,7 @@ class QwintoScoreSheet : public ScoreSheet {
 		bool validate(RollOfDice roll, Colour c, int position);
 		bool operator!() const;
 	public:
-		QwintoScoreSheet();
+		QwintoScoreSheet(const std::string& name);
 		bool score(RollOfDice roll, Colour c, int position);
 };
 

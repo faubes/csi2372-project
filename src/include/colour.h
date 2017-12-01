@@ -2,8 +2,19 @@
 #define COLOUR
 
 #include <string>
+#include <array>
 
 enum class Colour { RED, YELLOW, BLUE, GREEN, WHITE };
+
+
+// arrays containing all colours for iterating
+const std::array<Colour, 3> qwintoColours = { Colour::RED, 
+	Colour::YELLOW, Colour::BLUE };
+
+const std::array<Colour, 6> qwixxColours = { Colour::RED, 
+	Colour::YELLOW, Colour::BLUE, Colour::GREEN, Colour::WHITE, 
+	Colour::WHITE };
+
 
 // Helper method converts Colour to string
 static std::string colour_to_string(const Colour c) {

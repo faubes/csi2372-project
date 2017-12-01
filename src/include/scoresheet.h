@@ -23,7 +23,7 @@ using std::string;
 class ScoreSheet {
 	// default private
 	// It needs to hold the name of the player, the number of failed attempts and the overall score.
-	std::string player_name;
+	std::string name;
 	int failed_attempts = 0;
 	int total_score = 0;
 		
@@ -46,7 +46,9 @@ public:
 		mean that the position info is not used when the game Qwixx is played.Score is to return a boolean
 		indicating if the Dice can be scored.*/
 	// this will call pure virtual validate() internally
-	bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
+	ScoreSheet(const std::string& name);
+	
+	virtual bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
 
 	/* Another function is setTotal which calls the pure virtual function calcTotal, 
 		sets and returns the points for the final score.*/

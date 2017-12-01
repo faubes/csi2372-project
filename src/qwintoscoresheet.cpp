@@ -1,7 +1,7 @@
 #include "qwintoscoresheet.h"
 #include <iostream>
 
-QwintoScoreSheet::QwintoScoreSheet() {}
+QwintoScoreSheet::QwintoScoreSheet(const std::string& n) : ScoreSheet(n) {}
 
 int QwintoScoreSheet::calcTotal() {
 	return 0;
