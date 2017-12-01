@@ -3,8 +3,8 @@
 //#define TEST_RANDOMDICE
 //#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
-//#define TEST_QWINTO_SCORESHEET
-#define TEST_QWINTOPLAYER
+#define TEST_QWINTO_SCORESHEET
+//#define TEST_QWINTOPLAYER
 
 #include "colour.h"
 #include "randomdice.h"
@@ -42,11 +42,11 @@ int main() {
 #ifdef TEST_QWINTO_ROW
 	//Test creation of a RED row
 	QwintoRow<Colour::RED> redRow;
+	QwintoRow<Colour::YELLOW> yellowRow;
 
-	std::cout << redRow.validate(rd, 3) << std::endl;
+	std::cout << redRow.row_complete() << std::endl;
+	std::cout << yellowRow.row_complete() << std::endl;
 
-	std::cout << redRow.validate(rd, 2) << std::endl;
-	
 	//array should remain the same
 	std::cout << redRow.getColour() << std::endl;
 	for (int i = 0; i < 12; i++) {
