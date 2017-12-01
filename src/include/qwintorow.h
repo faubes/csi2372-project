@@ -47,6 +47,8 @@ class QwintoRow {
 			return qwintoArray[index];
 		}
 		
+		int getMax() const;
+		
 		// methods needed to enable range loops over RoD
 		using iterator = fixed_array::iterator;
 		using const_iterator = fixed_array::const_iterator;
@@ -232,6 +234,11 @@ bool QwintoRow<C>::row_complete() {
 	}
 
 	return true;
+}
+
+template <const Colour C>
+int QwintoRow<C>::getMax() const {
+	return *std::max_element(qwintoArray.begin(), qwintoArray.end());
 }
 
 #endif

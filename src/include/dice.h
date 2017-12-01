@@ -24,8 +24,8 @@ class Dice {
 		Dice(const Colour _c);
 		void roll();
 		friend ostream& operator<<(ostream& os, const Dice& d);
-		Colour getColour() { return c; }
-		int getValue() { return face; }
+		Colour getColour() const { return c; }
+		int getValue() const { return face; }
 };
 
 #endif

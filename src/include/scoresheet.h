@@ -58,6 +58,8 @@ public:
 		return total_score;
 	}
 
+	virtual bool isFailedThrow(const RollOfDice& rod) const = 0;
+	
 	//https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
 	/* You need to overload the insertion operator for
 		the class ScoreSheet for printing. This global operator should behave polymorphically, even though,

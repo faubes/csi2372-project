@@ -44,7 +44,7 @@ void RollOfDice::roll() {
 	}
 }
 
-RollOfDice::operator int() {
+RollOfDice::operator int() const {
 	int total = 0;
 	for (auto &d : rod) {
 		total += d.getValue();

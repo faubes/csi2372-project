@@ -58,11 +58,13 @@ int main() {
 #endif
 
 #ifdef TEST_QWINTO_SCORESHEET
-	QwintoScoreSheet qws;
+	QwintoScoreSheet qws("Art");
 	ScoreSheet& ss = qws;
-
+	std::vector<Colour> colours3 = { Colour::RED, Colour::YELLOW };
+	RollOfDice rd2(colours3);
+	rd2.roll();
 	//calling from ss gives parent class for score()
-	std::cout << "Score (T/F): " << ss.score(rd,Colour::RED,2) << std::endl;
+	std::cout << "Score (T/F): " << ss.score(rd2,Colour::RED,2) << std::endl;
 	std::cout << ss << std::endl;
 
 #endif

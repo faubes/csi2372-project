@@ -41,7 +41,7 @@ public:
 	const_iterator cend() const { return rod.cend(); }
 	
 	// converts roll to int by summing face values
-	operator int();
+	operator int() const;
 
 	friend ostream& operator<<(ostream& os, const RollOfDice& rod);
 

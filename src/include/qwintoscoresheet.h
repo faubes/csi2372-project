@@ -15,13 +15,13 @@ class QwintoScoreSheet : public ScoreSheet {
 		void print(std::ostream& myStream) const;
 		int calcTotal();
 		// The function score is to call the protected pure virtual function validate internally.
-		bool checkForFailedThrow(RollOfDice roll);
 		bool validate(RollOfDice roll, Colour c, int position);
 		bool operator!() const;
 		bool col_complete();
 	public:
 		QwintoScoreSheet(const std::string& name);
 		bool score(RollOfDice roll, Colour c, int position);
+		bool isFailedThrow(const RollOfDice& rod) const;
 };
 
 #endif

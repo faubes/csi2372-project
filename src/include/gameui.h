@@ -34,3 +34,4 @@ bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
 	}
 	return res;
 }
+

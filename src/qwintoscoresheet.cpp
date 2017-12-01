@@ -142,9 +142,19 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 	return ((valid_row == true) && (valid_col == true));
 }
 
-bool QwintoScoreSheet::checkForFailedThrow(const RollOfDice& rod) {
-	int sum = rod;
+
+// Lazy way to test if there is a valid place to enter a score
+// creates a copy of scoresheet and tests all possible locations
+// until a valid one is found
+bool QwintoScoreSheet::isFailedThrow(const RollOfDice& rod) const {
+	bool valid = false;
+	QwintoScoreSheet copy(*this);
 	for (const auto& d : rod) {
-		
+		for (int i=0; i < 12; i++) {
+			valid = copy.score(rod, d.getColour(), i);
+			if (valid) break;
+		}
+		if (valid) break;
 	}
+	return !valid;
 }
