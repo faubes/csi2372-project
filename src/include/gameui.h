@@ -35,7 +35,7 @@ bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
 	return res;
 }
 
-bool getInt(std::ostream& os, std::istream& is, int low, int high) {
+int getInt(std::ostream& os, std::istream& is, int low, int high) {
 	int res;
 	for (;;) {
 	os << "Which position in that row? " << "[" << low << ".." << high << "]: ";
@@ -47,6 +47,7 @@ bool getInt(std::ostream& os, std::istream& is, int low, int high) {
 		is.clear();
 		}
 	}
+	os << "You entered " << res << std::endl;
 	return res;
 }
 

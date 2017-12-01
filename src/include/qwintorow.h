@@ -34,8 +34,8 @@ class QwintoRow {
 		//copy assignment
 		//QwintoRow& operator= (const QwintoRow& other);
 		
-		int row_complete();
-
+		int row_complete() const;
+		bool isFull() const;
 		bool validate(RollOfDice myRoll, const int index);
 		
 		std::string getColour() const;
@@ -232,7 +232,7 @@ bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
 
 
 template <const Colour C>
-int QwintoRow<C>::row_complete() {
+int QwintoRow<C>::row_complete() const {
 	int counter = 0;
 
 	for (int i = 0; i < 12; i++) {
@@ -243,6 +243,11 @@ int QwintoRow<C>::row_complete() {
 	}
 
 	return counter;
+}
+
+template <const Colour C>
+bool QwintoRow<C>::isFull() const {
+	return row_complete() == 9;
 }
 
 template <const Colour C>

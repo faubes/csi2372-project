@@ -226,3 +226,17 @@ bool QwintoScoreSheet::isFailedThrow(const RollOfDice& rod) const {
 	}
 	return !valid;
 }
+
+bool QwintoScoreSheet::isRowFull(const Colour& c) const {
+	switch(c) {
+		case(Colour::RED):
+			return this->redRow.isFull();
+			break;
+		case(Colour::YELLOW):
+			return this->yellowRow.isFull();
+			break;
+		case(Colour::BLUE):
+			return this->blueRow.isFull();
+			break;	
+	}
+}

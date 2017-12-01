@@ -22,6 +22,7 @@ class QwintoScoreSheet : public ScoreSheet {
 		QwintoScoreSheet(const std::string& name);
 		bool score(RollOfDice roll, Colour c, int position);
 		bool isFailedThrow(const RollOfDice& rod) const;
+		bool isRowFull(const Colour& c) const;
 };
 
 #endif

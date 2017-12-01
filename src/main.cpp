@@ -1,7 +1,7 @@
 // main file with game loop, tests
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
-#define TEST_ROLLOFDICE
+//#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
 //#define TEST_QWINTO_SCORESHEET
 #define TEST_QWINTOPLAYER
@@ -12,6 +12,7 @@
 #include "scoresheet.h"
 #include "qwintorow.h"
 #include "qwintoscoresheet.h"
+#include "qwintoplayer.h"
 #include <iostream>
 
 
@@ -79,6 +80,7 @@ int main() {
 	RollOfDice rod;
 	qp.inputBeforeRoll(rod);
 	std::cout << rod;
+	std::cout << qp;
 	qp.inputAfterRoll(rod);
 	std::cout << qp;
 #endif

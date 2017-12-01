@@ -22,6 +22,9 @@ void Dice::roll() {
 // for the ascii art
 ostream& operator<<(ostream& os, const Dice& d)
 {
+
+os << d.face;
+/* Removed fanci ascii for now
 	switch (d.face) {
 
 	case 1:
@@ -75,6 +78,6 @@ ostream& operator<<(ostream& os, const Dice& d)
 	default:
 		os << "Whoops! Broken dice" << std::endl;
 	}
-
+*/
 	return os;
 }

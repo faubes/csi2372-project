@@ -54,9 +54,13 @@ RollOfDice::operator int() const {
 
 std::ostream& operator<<(std::ostream& os, const RollOfDice& rod) {
 	for (const auto& d : rod) {
+		os << colour_to_string(d.getColour());
+		os << ": ";
 		os << d;
-		os << std::endl;
+		os << " ";
 	}
+	os << std::endl;
+	os << "Total: " << static_cast<int>(rod) << std::endl;
 	return os;
 }
 

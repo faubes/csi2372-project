@@ -50,21 +50,35 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
 		}
 		return;
 	}
-	bool valid = false;
+	bool validrow = false;
 	Colour c;
-	while (!valid) {
+	while (!validrow) {
 		for (const auto& d: rod ) {
 			c = d.getColour();
-			std::string msg("Add score to "+ colour_to_string(c) + " row?");
-			if (getYesNo(std::cout, std::cin, msg)) {
-				valid = true;
+			if (!qws.isRowFull(c)) {
+				std::string msg("Add score to "+ colour_to_string(c) + " row?");
+				if (getYesNo(std::cout, std::cin, msg)) {
+					validrow = true;
+					break;
+				}
+			}
+		}
+		if (!validrow)
+			std::cout << "You need to enter a score into one of the rows." << std::endl;
+		
+		bool validcol = false;
+		while (validrow && !validcol) {
+			int i = getInt(std::cout, std::cin, 0, 11);
+			std::cout << "Writing " << static_cast<int>(rod) << " to row " 
+				<< colour_to_string(c) << " in cell " << i << std::endl;
+			validcol = this->qws.score(rod, c, i);
+			if (!validcol) {
+				std::cout << "Hmm, looks like you can't put a score there." << std::endl;
+				validrow = false;
 				break;
 			}
 		}
-		std::cout << "You need to enter a score into one of the rows." << std::endl;
 	}
-	int i = getInt(std::cout, std::cin, 0, 11);
-	this->qws.score(rod, c, i);
 }
 
 void QwintoPlayer::print(std::ostream& os) const {
