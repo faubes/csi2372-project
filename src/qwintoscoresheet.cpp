@@ -109,12 +109,12 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 
 	//std::cout << row << std::endl;
 
-	std::cout << "row check " << valid_row << std::endl;
+	//std::cout << "row check " << valid_row << std::endl;
 
 	//this is column check
 	valid_col = validate(roll, c, position);
 
-	std::cout << "column check " << valid_col << std::endl;
+	//std::cout << "column check " << valid_col << std::endl;
 
 
 	if ((valid_row == true) && (valid_col == true)) {

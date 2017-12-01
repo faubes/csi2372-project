@@ -34,6 +34,8 @@ class QwintoRow {
 		//copy assignment
 		//QwintoRow& operator= (const QwintoRow& other);
 		
+		bool row_complete();
+
 		bool validate(RollOfDice myRoll, const int index);
 		
 		std::string getColour() const;
@@ -217,6 +219,19 @@ bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
 
 	// check if original == sorted
 	return original == values;
+}
+
+
+template <const Colour C>
+bool QwintoRow<C>::row_complete() {
+	for (int i = 0; i < 12; i++) {
+		if (qwintoArray[i] == 0) {
+			//then not all cells filled in
+			return false;
+		}
+	}
+
+	return true;
 }
 
 #endif
