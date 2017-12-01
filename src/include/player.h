@@ -15,7 +15,7 @@
 #include "rollofdice.h"
 
 class Player {
-	protected:
+protected:
 	bool active = false;
 	std::string name;
 	virtual void print(std::ostream& myStream) const = 0;

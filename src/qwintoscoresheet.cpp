@@ -3,12 +3,81 @@
 
 QwintoScoreSheet::QwintoScoreSheet(const std::string& n) : ScoreSheet(n) {}
 
-bool QwintoScoreSheet::col_complete() {
-	return false;
+bool QwintoScoreSheet::col_complete(int col) {
+	return ((redRow[col] != 0) && (yellowRow[col] != 0) && (blueRow[col] != 0));
 }
 
 int QwintoScoreSheet::calcTotal() {
-	return 0;
+	int newScore = 0;
+	
+	//filled row stuff
+	if (redRow.row_complete() == 9) {
+		//get most right
+		newScore += redRow[11];
+		std::cout << redRow[11] << std::endl;
+	}
+
+	else {
+		//return the count itself
+		newScore += redRow.row_complete();
+		std::cout << redRow.row_complete() << std::endl;
+	}
+
+	if(yellowRow.row_complete() == 9) {
+		//get most right
+		newScore += yellowRow[10];
+		std::cout << yellowRow[10] << std::endl;
+	}
+
+	else {
+		//return the count itself
+		newScore += yellowRow.row_complete();
+		std::cout << yellowRow.row_complete() << std::endl;
+	}
+
+	if (blueRow.row_complete() == 9) {
+		//get most right
+		newScore += blueRow[9];
+		std::cout << blueRow[9] << std::endl;
+	}
+
+	else {
+		//return the count itself
+		newScore += blueRow.row_complete();
+		std::cout << blueRow.row_complete() << std::endl;
+	}
+
+	//bonus points (the % cells)
+	//col 2
+	if (col_complete(2)) {
+		newScore += blueRow[2];
+		std::cout << blueRow[2] << std::endl;
+	}
+	//col 3
+	if (col_complete(3)) {
+		newScore += redRow[3];
+		std::cout << redRow[3] << std::endl;
+	}
+	//col 7
+	if (col_complete(7)) {
+		newScore += redRow[7];
+		std::cout << redRow[7] << std::endl;
+	}
+	//col 8
+	if (col_complete(8)) {
+		newScore += yellowRow[8];
+		std::cout << yellowRow[8] << std::endl;
+	}
+	//col 9
+	if (col_complete(9)) {
+		newScore += blueRow[9];
+		std::cout << blueRow[9] << std::endl;
+	}
+
+	//failed throws
+	newScore = newScore - (5 * getFailedThrows());
+
+	return newScore;
 }
 
 bool QwintoScoreSheet::validate(RollOfDice roll, Colour c, int position) {
@@ -142,7 +211,6 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 	return ((valid_row == true) && (valid_col == true));
 }
 
-
 // Lazy way to test if there is a valid place to enter a score
 // creates a copy of scoresheet and tests all possible locations
 // until a valid one is found
@@ -150,7 +218,7 @@ bool QwintoScoreSheet::isFailedThrow(const RollOfDice& rod) const {
 	bool valid = false;
 	QwintoScoreSheet copy(*this);
 	for (const auto& d : rod) {
-		for (int i=0; i < 12; i++) {
+		for (int i = 0; i < 12; i++) {
 			valid = copy.score(rod, d.getColour(), i);
 			if (valid) break;
 		}

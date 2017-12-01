@@ -1,7 +1,7 @@
 // main file with game loop, tests
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
-//#define TEST_ROLLOFDICE
+#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
 //#define TEST_QWINTO_SCORESHEET
 #define TEST_QWINTOPLAYER
@@ -12,7 +12,6 @@
 #include "scoresheet.h"
 #include "qwintorow.h"
 #include "qwintoscoresheet.h"
-#include "qwintoplayer.h"
 #include <iostream>
 
 
@@ -63,8 +62,14 @@ int main() {
 	std::vector<Colour> colours3 = { Colour::RED, Colour::YELLOW };
 	RollOfDice rd2(colours3);
 	rd2.roll();
+
 	//calling from ss gives parent class for score()
-	std::cout << "Score (T/F): " << ss.score(rd2,Colour::RED,2) << std::endl;
+	ss.incrementFailedThrows();
+	ss.incrementFailedThrows();
+	ss.incrementFailedThrows();
+
+	//std::cout << "Score (T/F): " << ss.score(rd2, Colour::RED, 2) << std::endl;
+	std::cout << "Set Total: " << ss.setTotal() << std::endl;
 	std::cout << ss << std::endl;
 
 #endif

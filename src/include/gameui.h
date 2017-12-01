@@ -23,13 +23,13 @@ bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
 				res = true;
 				break;
 			}
-			if (input == "no" || input == "n") 
+			if (input == "no" || input == "n")
 			{
 				res = false;
 				break;
 			}
-		os << msg << " " << "[Y/N]: ";
-		is.clear();
+			os << msg << " " << "[Y/N]: ";
+			is.clear();
 		}
 	}
 	return res;

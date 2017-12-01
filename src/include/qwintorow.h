@@ -34,7 +34,7 @@ class QwintoRow {
 		//copy assignment
 		//QwintoRow& operator= (const QwintoRow& other);
 		
-		bool row_complete();
+		int row_complete();
 
 		bool validate(RollOfDice myRoll, const int index);
 		
@@ -46,7 +46,7 @@ class QwintoRow {
 		int& operator[] (const int index) {
 			return qwintoArray[index];
 		}
-		
+
 		int getMax() const;
 		
 		// methods needed to enable range loops over RoD
@@ -96,6 +96,9 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 		qwintoArray[4] = 5;
 		qwintoArray[7] = 12;
 		qwintoArray[8] = 13;
+
+		//remove next
+		//qwintoArray[9] = 15;
 	}
 
 	else if (C == Colour::BLUE) {
@@ -108,6 +111,10 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 		qwintoArray[3] = 6;
 		qwintoArray[5] = 7;
 		qwintoArray[8] = 10;
+
+		//remove next
+		//qwintoArray[2] = 4;
+		//qwintoArray[9] = 11;
 	}
 
 	else {
@@ -225,15 +232,17 @@ bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
 
 
 template <const Colour C>
-bool QwintoRow<C>::row_complete() {
+int QwintoRow<C>::row_complete() {
+	int counter = 0;
+
 	for (int i = 0; i < 12; i++) {
-		if (qwintoArray[i] == 0) {
-			//then not all cells filled in
-			return false;
+		if (qwintoArray[i] > 0) {
+			//then all filled in cells
+			counter++;
 		}
 	}
 
-	return true;
+	return counter;
 }
 
 template <const Colour C>
