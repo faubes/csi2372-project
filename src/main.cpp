@@ -60,8 +60,8 @@ int main() {
 	ScoreSheet& ss = qws;
 
 	//calling from ss gives parent class for score()
-	std::cout << "Score (T/F): " << qws.score(rd,Colour::RED,2) << std::endl;
-	std::cout << qws << std::endl;
+	std::cout << "Score (T/F): " << ss.score(rd,Colour::RED,2) << std::endl;
+	std::cout << ss << std::endl;
 
 #endif
 

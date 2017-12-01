@@ -46,7 +46,7 @@ public:
 		mean that the position info is not used when the game Qwixx is played.Score is to return a boolean
 		indicating if the Dice can be scored.*/
 	// this will call pure virtual validate() internally
-	bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
+	virtual bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
 
 	/* Another function is setTotal which calls the pure virtual function calcTotal, 
 		sets and returns the points for the final score.*/

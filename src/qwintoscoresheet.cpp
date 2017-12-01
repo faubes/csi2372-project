@@ -3,6 +3,10 @@
 
 QwintoScoreSheet::QwintoScoreSheet() {}
 
+bool QwintoScoreSheet::col_complete() {
+	return false;
+}
+
 int QwintoScoreSheet::calcTotal() {
 	return 0;
 }
@@ -80,21 +84,22 @@ bool QwintoScoreSheet::operator!() const {
 
 bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 	//call the QwintoRow validate to check if a) the cell is valid b) the new value is valid in a row context
-	bool valid = false;
+	bool valid_row;
+	bool valid_col;
 	int row;
 	
 	if (colour_to_string(c) == "Red") {
-		valid = redRow.validate(roll, position);
+		valid_row = redRow.validate(roll, position);
 		row = 0;
 	}
 
 	else if (colour_to_string(c) == "Yellow") {
-		valid = yellowRow.validate(roll, position);
+		valid_row = yellowRow.validate(roll, position);
 		row = 1;
 	}
 
 	else if (colour_to_string(c) == "Blue") {
-		valid = blueRow.validate(roll, position);
+		valid_row = blueRow.validate(roll, position);
 		row = 2;
 	}
 
@@ -104,14 +109,15 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 
 	//std::cout << row << std::endl;
 
-	//std::cout << "row check " << valid << std::endl;
+	std::cout << "row check " << valid_row << std::endl;
 
 	//this is column check
-	valid = validate(roll, c, position);
+	valid_col = validate(roll, c, position);
 
-	//std::cout << "column check " << valid << std::endl;
+	std::cout << "column check " << valid_col << std::endl;
 
-	if (valid == true) {
+
+	if ((valid_row == true) && (valid_col == true)) {
 		//then we make insertion
 		if (row == 0) {
 			//Red
@@ -133,5 +139,5 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 		}
 	}
 
-	return valid;
+	return ((valid_row == true) && (valid_col == true));
 }

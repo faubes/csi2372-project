@@ -70,19 +70,40 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 		qwintoArray[1] = -1;
 		qwintoArray[5] = -1;
 		//for validation testing purposes
-		//qwintoArray[3] = 1;
+		qwintoArray[2] = 2;
+		qwintoArray[3] = 3;
+		qwintoArray[4] = 6;
+		qwintoArray[6] = 9;
+		qwintoArray[7] = 11;
+		qwintoArray[8] = 12;
+		qwintoArray[9] = 13;
+		qwintoArray[10] = 15;
+		qwintoArray[11] = 16;
 	}
 
 	else if (C == Colour::YELLOW) {
 		qwintoArray[0] = -1;
 		qwintoArray[6] = -1;
 		qwintoArray[11] = -1;
+		//testing
+		qwintoArray[1] = 1;
+		qwintoArray[2] = 3;
+		qwintoArray[3] = 4;
+		qwintoArray[4] = 5;
+		qwintoArray[7] = 12;
+		qwintoArray[8] = 13;
 	}
 
 	else if (C == Colour::BLUE) {
 		qwintoArray[4] = -1;
 		qwintoArray[10] = -1;
 		qwintoArray[11] = -1;
+		//testing
+		qwintoArray[0] = 1;
+		qwintoArray[1] = 3;
+		qwintoArray[3] = 6;
+		qwintoArray[5] = 7;
+		qwintoArray[8] = 10;
 	}
 
 	else {
