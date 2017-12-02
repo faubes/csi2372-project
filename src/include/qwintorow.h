@@ -203,12 +203,19 @@ std::string QwintoRow<C>::getColour() const {
 	return colour_to_string(colour);
 }
 
+// Function tests if a given roll value can be placed in the row
 template <const Colour C>
 bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
+	// if cell is non zero then either it's already filled or it's an invalid cell
 	if (qwintoArray[index] != 0) {
 		return false;
 	}
-
+	
+	// if value is already in the row, then no good.
+	auto elem = std::find(qwintoArray.begin(), qwintoArray.end(), static_cast<int>(myRoll));
+	if (elem != qwintoArray.end()) {
+		return false;
+	}
 	std::array<int, 12> temp = qwintoArray;
 
 	temp[index] = static_cast<int>(myRoll);
