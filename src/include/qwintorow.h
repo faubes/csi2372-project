@@ -76,7 +76,7 @@ class QwintoRow {
         }
 	
 		//overload insertion operator print for ScoreSheet
-        template <const Colour c>
+        template <const Colour C>
         friend std::ostream& operator<<(std::ostream& os, const QwintoRow<C>& qr);
 };
 

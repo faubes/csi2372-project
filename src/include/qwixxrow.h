@@ -1,14 +1,36 @@
 #pragma once
 
 #include "colour.h"
+#include <vector>
+#include <list>
 
-template<template <typename Type, typename Colour> class Container, typename Type, typename Colour>
+template <class T, const Colour C>
 class QwixxRow {
-        Container<Type> qwixxContainer;
-        Colour c;
-
     public:
+		QwixxRow();
+		T qwixxContainer{};
+		const Colour colour;
+
         //+= operator to add RollOfDice of size 2, error checking throw exception on error
 
-        //overload insertion operator print for ScoreSheet
+		template <class T1, const Colour C1>
+		friend std::ostream& operator<<(std::ostream& os, const QwixxRow<T1,C1>& qr);
 };
+
+
+template <class T, const Colour C>
+QwixxRow<T,C>::QwixxRow() : colour(C) {
+	//testing
+	//qwixxContainer.push_back(0);
+}
+
+template <class T, const Colour C>
+std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
+
+	std::cout << "Container size: " << qr.qwixxContainer.size() << std::endl;
+
+	for (auto v : qr.qwixxContainer)
+		std::cout << v << "\n";
+
+	return os;
+}

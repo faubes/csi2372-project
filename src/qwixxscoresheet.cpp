@@ -1,7 +1,6 @@
-#ifndef QWIXXSCORESHEET
-#define QWIXXSCORESHEET
+// qwixxscoresheet.cpp
 
-#include "scoresheet.h"
+#include "qwixxscoresheet.h"
 #include "qwixxrow.h"
 #include <vector>
 #include <list>
@@ -23,5 +22,3 @@ class QwixxScoreSheet : public ScoreSheet {
 		bool score(RollOfDice roll, Colour c, int position);
 		bool isFailedThrow(const RollOfDice& rod) const;
 };
-
-#endif

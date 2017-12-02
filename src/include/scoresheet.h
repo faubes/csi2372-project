@@ -29,10 +29,10 @@ class ScoreSheet {
 
     protected:
         //check if a column is filled
-        virtual bool col_complete(int col);
+        //virtual bool col_complete(int col);
 
         // The function score is to call the protected pure virtual function validate internally.
-        virtual bool validateCol(RollOfDice roll, Colour c, int position)=0;
+        //virtual bool validateCol(RollOfDice roll, Colour c, int position)=0;
 
         // Another function is setTotal which calls the pure virtual function calcTotal
         virtual int calcTotal()=0;

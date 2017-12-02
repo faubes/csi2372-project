@@ -20,19 +20,17 @@ RollOfDice::RollOfDice(const std::vector<Colour> &colours) :
 	}
 }
 
-void RollOfDice::addDice(const Colour &c) {
+void RollOfDice::addDice(const Dice& d) {
 	rod.emplace_back(Dice(c));
 }
 
-RollOfDice RollOfDice::getPair(const std::vector<Colour> &colours)
+RollOfDice RollOfDice::getPair(int i, int j)
 	{
-	if (!colours.size() != 2)
-		throw "whoops! can't get a pair that's not size 2";
-		
 	RollOfDice pairOfDice;
+	int counter = 1;
 	for (auto &d : *this) {
-		if (std::find(colours.begin(), colours.end(), d.getColour()) != colours.end()) {
-				pairOfDice.addDice(d.getColour());
+		if ((counter == i) || (counter == j)) {
+				pairOfDice.addDice(d);
 		}
 	}
 	return pairOfDice;

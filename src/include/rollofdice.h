@@ -23,9 +23,9 @@ class RollOfDice {
         RollOfDice();
         RollOfDice(const std::vector<Colour> &colours);
 
-        void addDice(const Colour &colour);
+        void addDice(const Dice& d);
 
-        RollOfDice getPair(const std::vector<Colour> &colours);
+        RollOfDice getPair(int i, int j) const;
 
         void roll();
 

@@ -1,6 +1,6 @@
 // main file with game loop, tests
 
-#define GAMELOOP
+//#define GAMELOOP
 //#define TESTS
 #ifdef TESTS
 //#define TEST_COLOUR
@@ -9,6 +9,7 @@
 //#define TEST_QWINTO_ROW
 //#define TEST_QWINTO_SCORESHEET
 //#define TEST_QWINTOPLAYER
+#define TEST_QWIXX_ROW
 #endif
 
 #include "gameui.h"
@@ -90,6 +91,15 @@ int main() {
     std::cout << qp;
     qp.inputAfterRoll(rod);
     std::cout << qp;
+#endif
+
+#ifdef TEST_QWIXX_ROW
+	QwixxRow < std::list<int>, Colour::RED > myQwixxRed;
+	QwixxRow < std::vector<int>, Colour::YELLOW > myQwixxYellow;
+	std::cout << myQwixxRed << std::endl;
+	std::cout << colour_to_string(myQwixxRed.colour) << std::endl;
+	std::cout << myQwixxYellow << std::endl;
+	std::cout << colour_to_string(myQwixxYellow.colour) << std::endl;
 #endif
 
 #ifdef GAMELOOP
