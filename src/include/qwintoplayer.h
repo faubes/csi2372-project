@@ -13,12 +13,13 @@
 #include "qwintoscoresheet.h"
 
 class QwintoPlayer : public Player {
-	QwintoScoreSheet qws;
-public:
-	QwintoPlayer(const std::string& name);
-	void inputBeforeRoll(RollOfDice& rod);
-	void inputAfterRoll(const RollOfDice& rod);
-	void print(std::ostream& myStream) const;
+        QwintoScoreSheet qws;
+    public:
+        QwintoPlayer(const std::string& name);
+        void inputBeforeRoll(RollOfDice& rod);
+        void inputAfterRoll(const RollOfDice& rod);
+        void print(std::ostream& myStream) const;
 };
 
 #endif
+s

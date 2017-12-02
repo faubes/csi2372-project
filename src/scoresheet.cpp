@@ -6,18 +6,18 @@
 ScoreSheet::ScoreSheet(const std::string& n) : name(n) {}
 
 void ScoreSheet::print(std::ostream& myStream) const {
-	//do nothing
+    //do nothing
 }
 
 bool ScoreSheet::operator!() const {
-	return false;
+    return false;
 }
 
 bool ScoreSheet::score(RollOfDice roll, Colour c, int position) {
-	std::cout << "Score from ScoreSheet and no children" << std::endl;
-	return false;
+    std::cout << "Score from ScoreSheet and no children" << std::endl;
+    return false;
 }
 
 bool ScoreSheet::col_complete(int col) {
-	return false;
+    return false;
 }

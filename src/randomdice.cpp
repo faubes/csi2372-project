@@ -19,6 +19,6 @@ std::uniform_int_distribution<> RandomDice::dis(1, 6);
 
 // returns a new integer from [1,6] with uniform prob. dist.
 int RandomDice::get() {
-	return RandomDice::dis(RandomDice::gen);
+    return RandomDice::dis(RandomDice::gen);
 }
 

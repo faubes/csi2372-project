@@ -4,11 +4,11 @@
 
 template<template <typename Type, typename Colour> class Container, typename Type, typename Colour>
 class QwixxRow {
-	Container<Type> qwixxContainer;
-	Colour c;
+        Container<Type> qwixxContainer;
+        Colour c;
 
-public:
-	//+= operator to add RollOfDice of size 2, error checking throw exception on error
+    public:
+        //+= operator to add RollOfDice of size 2, error checking throw exception on error
 
-	//overload insertion operator print for ScoreSheet
+        //overload insertion operator print for ScoreSheet
 };

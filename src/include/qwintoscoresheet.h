@@ -8,21 +8,21 @@
 using std::vector;
 
 class QwintoScoreSheet : public ScoreSheet {
-		QwintoRow<Colour::RED> redRow;
-		QwintoRow<Colour::YELLOW> yellowRow;
-		QwintoRow<Colour::BLUE> blueRow;
+        QwintoRow<Colour::RED> redRow;
+        QwintoRow<Colour::YELLOW> yellowRow;
+        QwintoRow<Colour::BLUE> blueRow;
 
-		void print(std::ostream& myStream) const;
-		int calcTotal();
-		// The function score is to call the protected pure virtual function validate internally.
-		bool validate(RollOfDice roll, Colour c, int position);
-		bool operator!() const;
-		bool col_complete(int col);
-	public:
-		QwintoScoreSheet(const std::string& name);
-		bool score(RollOfDice roll, Colour c, int position);
-		bool isFailedThrow(const RollOfDice& rod) const;
-		bool isRowFull(const Colour& c) const;
+        void print(std::ostream& myStream) const;
+        int calcTotal();
+        // The function score is to call the protected pure virtual function validate internally.
+        bool validate(RollOfDice roll, Colour c, int position);
+        bool operator!() const;
+        bool col_complete(int col);
+    public:
+        QwintoScoreSheet(const std::string& name);
+        bool score(RollOfDice roll, Colour c, int position);
+        bool isFailedThrow(const RollOfDice& rod) const;
+        bool isRowFull(const Colour& c) const;
 };
 
 #endif

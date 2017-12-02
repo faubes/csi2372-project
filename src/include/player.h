@@ -6,7 +6,7 @@
 *  github.com/agbleung
 */
 
-// provides functions for console input and output to a player. 
+// provides functions for console input and output to a player.
 
 #ifndef PLAYER
 #define PLAYER
@@ -15,21 +15,25 @@
 #include "rollofdice.h"
 
 class Player {
-protected:
-	bool active = false;
-	std::string name;
-	virtual void print(std::ostream& myStream) const = 0;
-	public:
-		Player(const std::string& n) : name(n) {}
-		virtual void inputBeforeRoll(RollOfDice& rod) = 0;
-		virtual void inputAfterRoll(const RollOfDice& rod) = 0;
-		void setActive(bool b) { active = b; }
-		bool isActive() const { return active; }
-		friend ostream& operator<<(ostream& os, const Player& p) 
-			{
-			p.print(os);
-			return os; 
-			}
+    protected:
+        bool active = false;
+        std::string name;
+        virtual void print(std::ostream& myStream) const = 0;
+    public:
+        Player(const std::string& n) : name(n) {}
+        virtual void inputBeforeRoll(RollOfDice& rod) = 0;
+        virtual void inputAfterRoll(const RollOfDice& rod) = 0;
+        void setActive(bool b) {
+            active = b;
+        }
+        bool isActive() const {
+            return active;
+        }
+        friend ostream& operator<<(ostream& os, const Player& p)
+        {
+            p.print(os);
+            return os;
+        }
 };
 
 #endif

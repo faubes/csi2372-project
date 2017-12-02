@@ -21,66 +21,66 @@ using std::string;
 //The class ScoreSheet is the abstract parent class for the two different score sheets in Qwixx and Qwinto.
 
 class ScoreSheet {
-	// default private
-	// It needs to hold the name of the player, the number of failed attempts and the overall score.
-	std::string name;
-	int failed_throws = 0;
-	int total_score = 0;
-		
-protected:
-	//check if a column is filled
-	virtual bool col_complete(int col);
+        // default private
+        // It needs to hold the name of the player, the number of failed attempts and the overall score.
+        std::string name;
+        int failed_throws = 0;
+        int total_score = 0;
 
-	// The function score is to call the protected pure virtual function validate internally.
-	virtual bool validate(RollOfDice roll, Colour c, int position)=0;
+    protected:
+        //check if a column is filled
+        virtual bool col_complete(int col);
 
-	// Another function is setTotal which calls the pure virtual function calcTotal
-	virtual int calcTotal()=0;
+        // The function score is to call the protected pure virtual function validate internally.
+        virtual bool validate(RollOfDice roll, Colour c, int position)=0;
 
-	// method to be overloaded to provide polymorphic behaviour for the global << operator
-	virtual void print(std::ostream& myStream) const;
+        // Another function is setTotal which calls the pure virtual function calcTotal
+        virtual int calcTotal()=0;
 
-	// Finally, the not operator should be virtual and to return true if the ScoreSheet indicates that the game has ended.
-	virtual bool operator!() const;
+        // method to be overloaded to provide polymorphic behaviour for the global << operator
+        virtual void print(std::ostream& myStream) const;
 
-public:
-	/* A score should be entered by the function score which accepts a RollOfDice and the user selected
-		colour and position counted from the left.The position should have a default parameter of - 1 which is to
-		mean that the position info is not used when the game Qwixx is played.Score is to return a boolean
-		indicating if the Dice can be scored.*/
-	// this will call pure virtual validate() internally
-	ScoreSheet(const std::string& name);
-	
-	virtual bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
+        // Finally, the not operator should be virtual and to return true if the ScoreSheet indicates that the game has ended.
+        virtual bool operator!() const;
 
-	/* Another function is setTotal which calls the pure virtual function calcTotal, 
-		sets and returns the points for the final score.*/
-	// calls pure virtual calcTotal, sets total, returns total
-	int setTotal() {
-		total_score = calcTotal();
-		return total_score;
-	}
+    public:
+        /* A score should be entered by the function score which accepts a RollOfDice and the user selected
+        	colour and position counted from the left.The position should have a default parameter of - 1 which is to
+        	mean that the position info is not used when the game Qwixx is played.Score is to return a boolean
+        	indicating if the Dice can be scored.*/
+        // this will call pure virtual validate() internally
+        ScoreSheet(const std::string& name);
 
-	virtual bool isFailedThrow(const RollOfDice& rod) const = 0;
+        virtual bool score(RollOfDice roll, Colour c, int position = -1); //these need to be implemented still
 
-	//increment failed throw
-	void incrementFailedThrows() {
-		failed_throws++;
-	}
+        /* Another function is setTotal which calls the pure virtual function calcTotal,
+        	sets and returns the points for the final score.*/
+        // calls pure virtual calcTotal, sets total, returns total
+        int setTotal() {
+            total_score = calcTotal();
+            return total_score;
+        }
 
-	//get failed throw
-	int getFailedThrows() {
-		return failed_throws;
-	}
+        virtual bool isFailedThrow(const RollOfDice& rod) const = 0;
 
-	//https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
-	/* You need to overload the insertion operator for
-		the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
-		there is no polymorphism for global operators and functions.*/
-	friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
-		scoresheet.print(os);
-		return os;
-	}
+        //increment failed throw
+        void incrementFailedThrows() {
+            failed_throws++;
+        }
+
+        //get failed throw
+        int getFailedThrows() {
+            return failed_throws;
+        }
+
+        //https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
+        /* You need to overload the insertion operator for
+        	the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
+        	there is no polymorphism for global operators and functions.*/
+        friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
+            scoresheet.print(os);
+            return os;
+        }
 };
 
 // children

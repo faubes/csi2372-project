@@ -16,16 +16,20 @@
 using std::ostream;
 
 class Dice {
-	const Colour c;
-	int face;
+        const Colour c;
+        int face;
 
-	public:
-		// Dice();
-		Dice(const Colour _c);
-		void roll();
-		friend ostream& operator<<(ostream& os, const Dice& d);
-		Colour getColour() const { return c; }
-		int getValue() const { return face; }
+    public:
+        // Dice();
+        Dice(const Colour _c);
+        void roll();
+        friend ostream& operator<<(ostream& os, const Dice& d);
+        Colour getColour() const {
+            return c;
+        }
+        int getValue() const {
+            return face;
+        }
 };
 
 #endif

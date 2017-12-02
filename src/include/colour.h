@@ -8,36 +8,38 @@ enum class Colour { RED, YELLOW, BLUE, GREEN, WHITE };
 
 
 // arrays containing all colours for iterating
-const std::array<Colour, 3> qwintoColours = { Colour::RED, 
-	Colour::YELLOW, Colour::BLUE };
+const std::array<Colour, 3> qwintoColours = { Colour::RED,
+                                              Colour::YELLOW, Colour::BLUE
+                                            };
 
-const std::array<Colour, 6> qwixxColours = { Colour::RED, 
-	Colour::YELLOW, Colour::BLUE, Colour::GREEN, Colour::WHITE, 
-	Colour::WHITE };
+const std::array<Colour, 6> qwixxColours = { Colour::RED,
+                                             Colour::YELLOW, Colour::BLUE, Colour::GREEN, Colour::WHITE,
+                                             Colour::WHITE
+                                           };
 
 
 // Helper method converts Colour to string
 static std::string colour_to_string(const Colour c) {
-	switch (c) {
-	case Colour::RED:
-		return "Red";
-		break;
-	case Colour::YELLOW:
-		return "Yellow";
-		break;
-	case Colour::BLUE:
-		return "Blue";
-		break;
-	case Colour::GREEN:
-		return "Green";
-		break;
-	case Colour::WHITE:
-		return "White";
-		break;
-	default:
-		return "Invalid colour!";
-		break;
-	}
+    switch (c) {
+    case Colour::RED:
+        return "Red";
+        break;
+    case Colour::YELLOW:
+        return "Yellow";
+        break;
+    case Colour::BLUE:
+        return "Blue";
+        break;
+    case Colour::GREEN:
+        return "Green";
+        break;
+    case Colour::WHITE:
+        return "White";
+        break;
+    default:
+        return "Invalid colour!";
+        break;
+    }
 }
 
 /* maybe add colour in console later
