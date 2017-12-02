@@ -19,6 +19,7 @@
 #include "qwintorow.h"
 #include "qwintoscoresheet.h"
 #include "qwintoplayer.h"
+#include "qwixxplayer.h"
 #include <iostream>
 
 
@@ -94,12 +95,23 @@ int main() {
 #ifdef GAMELOOP
     std::cout << "Welcome to Qwinto / Qwixx!" << std::endl;
 
-    // TODO: Ask player to choose game version
+    // Ask player to choose game version
+    bool qwinto, qwixx;
+    while (!qwinto & !qwixx) {
+        qwinto = getYesNo(std::cout, std::cin, "Would you like to play Qwinto?");
+        if (!qwinto) {
+            qwixx = getYesNo(std::cout, std::cin, "How about Qwixx, then?");
+        }
+        if (!qwinto & !qwixx) {
+            std::cout << "Well then why did you load the game??" << std::endl;
+        }
+        std::cout << std::endl;
+    }
 
     // number of players and names of players.
     int numPlayers = getInt(std::cout, std::cin, "How many players?", 2, 12);
 
-    std::vector<QwintoPlayer> players;
+    std::vector<Player> players;
 
     // Create the corresponding players and RollOfDice for the game.
     RollOfDice rod;
@@ -108,14 +120,18 @@ int main() {
         std::stringstream msg;
         msg << "What is player " << i << "\'s name? ";
         std::string name = getString(std::cout, std::cin, msg.str());
-        players.emplace_back(QwintoPlayer(name));
+        if (qwinto) {
+            players.emplace_back(QwintoPlayer(name));
+        } else {
+            players.emplace_back(QwixxPlayer(name));
+        }
     }
 
     bool gameover = false;
     // while end condition is not reached
     while (!gameover) {
         for (auto & p : players) {
-			std::cout << p.getName() << "\'s roll!" << std::endl;
+            std::cout << p.getName() << "\'s roll!" << std::endl;
             // next player takes a turn i.e., becomes active
             p.setActive(true);
             // get input from active player before roll
@@ -128,8 +144,14 @@ int main() {
             // get input from active player after roll
             // score dice according to input from active player
             p.inputAfterRoll(rod);
-            // loop over all non-active players
+            std::cout << p;
+
+            // check if game is over
             if (!p) gameover = true;
+
+            std::cout << std::endl;
+
+            // loop over all non-active players
             for (auto & inactiveplayer : players) {
                 if (!inactiveplayer.isActive()) {
                     // print scoresheet of non-active player
@@ -139,7 +161,9 @@ int main() {
                     // get input from non-active player
                     // score dice according to input
                     inactiveplayer.inputAfterRoll(rod);
+                    std::cout << inactiveplayer;
                     if (!inactiveplayer) gameover = true;
+                    std::cout << std::endl;
                 }
             }
             p.setActive(false);
@@ -148,8 +172,8 @@ int main() {
     // loop over all players
     for (auto & p : players) {
         // calculate points for player
-        std::cout << p.getName() << std::endl;
-		std::cout << "Score: " << p.getScore();
+        std::cout << p.getName();
+        std::cout << "\'s score: " << p.getScore() << std::endl;
     }
 
 #endif

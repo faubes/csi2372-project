@@ -24,29 +24,32 @@ class QwintoRow {
         fixed_array qwintoArray{};
         const Colour colour;
 
+
     public:
         //constructor
         QwintoRow();
-        //destructor
-        //~QwintoRow();
-        //copy constructor
-        //QwintoRow(QwintoRow& other);
-        //copy assignment
-        //QwintoRow& operator= (const QwintoRow& other);
 
+		// returns numer of filled cells in a row
         int row_complete() const;
+        
+        // returns true if row is full
         bool isFull() const;
-        bool validate(RollOfDice myRoll, const int index);
+        
+        // checks if adding a score to index preserves ascending requirement
+        bool validateRow(const RollOfDice& myRoll, const int index);
 
+		// returns colour of row
         std::string getColour() const;
 
-        //overload insertion operator print for ScoreSheet
-
+		// helper tests if row contains value
+		bool contains(const RollOfDice &rod) const;
+        
         // overloads subscript operator for access to array
         int& operator[] (const int index) {
             return qwintoArray[index];
         }
 
+		// returns max value of the row
         int getMax() const;
 
         // methods needed to enable range loops over RoD
@@ -71,11 +74,10 @@ class QwintoRow {
         const_iterator cend() const {
             return qwintoArray.cend();
         }
-
+	
+		//overload insertion operator print for ScoreSheet
         template <const Colour c>
         friend std::ostream& operator<<(std::ostream& os, const QwintoRow<C>& qr);
-
-        //I need destructor, copy, assignment
 };
 
 template <const Colour C>
@@ -221,22 +223,27 @@ std::string QwintoRow<C>::getColour() const {
     return colour_to_string(colour);
 }
 
+template <const Colour C>
+bool QwintoRow<C>::contains(const RollOfDice &rod) const {
+    auto elem = std::find(qwintoArray.begin(), qwintoArray.end(), static_cast<int>(rod));
+	return (elem != qwintoArray.end());
+}
+
 // Function tests if a given roll value can be placed in the row
 template <const Colour C>
-bool QwintoRow<C>::validate(RollOfDice myRoll, const int index) {
+bool QwintoRow<C>::validateRow(const RollOfDice& rod, const int index) {
     // if cell is non zero then either it's already filled or it's an invalid cell
     if (qwintoArray[index] != 0) {
         return false;
     }
 
     // if value is already in the row, then no good.
-    auto elem = std::find(qwintoArray.begin(), qwintoArray.end(), static_cast<int>(myRoll));
-    if (elem != qwintoArray.end()) {
+    if (contains(rod)) {
         return false;
     }
     std::array<int, 12> temp = qwintoArray;
 
-    temp[index] = static_cast<int>(myRoll);
+    temp[index] = static_cast<int>(rod);
 
     std::vector<int> values;
 

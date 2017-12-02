@@ -61,7 +61,7 @@ class ScoreSheet {
             return total_score;
         }
 
-        virtual bool isFailedThrow(const RollOfDice& rod) const = 0;
+        // virtual std::vector<Colour> getAvailableRows(const RollOfDice& rod) const = 0;
 
         //increment failed throw
         void incrementFailedThrows() {

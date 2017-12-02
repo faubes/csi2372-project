@@ -14,58 +14,47 @@ int QwintoScoreSheet::calcTotal() {
     if (redRow.isFull()) {
         //get most right
         newScore += redRow[11];
-        std::cout << redRow[11] << std::endl;
     } else {
         //return the count itself
         newScore += redRow.row_complete();
-        std::cout << redRow.row_complete() << std::endl;
     }
 
     if(yellowRow.isFull()) {
         //get most right
         newScore += yellowRow[10];
-        std::cout << yellowRow[10] << std::endl;
     } else {
         //return the count itself
         newScore += yellowRow.row_complete();
-        std::cout << yellowRow.row_complete() << std::endl;
     }
 
     if (blueRow.isFull()) {
         //get most right
         newScore += blueRow[9];
-        std::cout << blueRow[9] << std::endl;
     } else {
         //return the count itself
         newScore += blueRow.row_complete();
-        std::cout << blueRow.row_complete() << std::endl;
     }
 
     //bonus points (the % cells)
     //col 2
     if (col_complete(2)) {
         newScore += blueRow[2];
-        std::cout << blueRow[2] << std::endl;
     }
     //col 3
     if (col_complete(3)) {
         newScore += redRow[3];
-        std::cout << redRow[3] << std::endl;
     }
     //col 7
     if (col_complete(7)) {
         newScore += redRow[7];
-        std::cout << redRow[7] << std::endl;
     }
     //col 8
     if (col_complete(8)) {
         newScore += yellowRow[8];
-        std::cout << yellowRow[8] << std::endl;
     }
     //col 9
     if (col_complete(9)) {
         newScore += blueRow[9];
-        std::cout << blueRow[9] << std::endl;
     }
 
     //failed throws
@@ -138,14 +127,16 @@ void QwintoScoreSheet::print(std::ostream& os) const {
     output << yellowRow;
     output << blueRow;
     os << output.str();
+    os << "Failed throws: " << getFailedThrows() << std::endl;
 }
 
+// returns true if this scoresheet has reached gameover state
 bool QwintoScoreSheet::operator!() const {
-	int completerows = 0;
-	if (this->redRow.isFull()) completerows++;
-	if (this->yellowRow.isFull()) completerows++;
-	if (this->blueRow.isFull()) completerows++;
-	return ((completerows > 1) || (this->getFailedThrows() == 5));
+    int completerows = 0;
+    if (this->redRow.isFull()) completerows++;
+    if (this->yellowRow.isFull()) completerows++;
+    if (this->blueRow.isFull()) completerows++;
+    return ((completerows > 1) || (this->getFailedThrows() == 4));
 }
 
 bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
@@ -154,54 +145,39 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
     bool valid_col;
     int row;
 
-    if (colour_to_string(c) == "Red") {
-        valid_row = redRow.validate(roll, position);
-        row = 0;
-    }
-
-    else if (colour_to_string(c) == "Yellow") {
-        valid_row = yellowRow.validate(roll, position);
-        row = 1;
-    }
-
-    else if (colour_to_string(c) == "Blue") {
-        valid_row = blueRow.validate(roll, position);
-        row = 2;
-    }
-
-    else {
+    switch(c) {
+    case(Colour::RED):
+        valid_row = redRow.validateRow(roll, position);
+        break;
+    case(Colour::YELLOW):
+        valid_row = yellowRow.validateRow(roll, position);
+        break;
+    case(Colour::BLUE):
+        valid_row = blueRow.validateRow(roll, position);
+        break;
+    default:
         std::cout << "Error" << std::endl;
+        break;
     }
 
-    //std::cout << row << std::endl;
-
-    //std::cout << "row check " << valid_row << std::endl;
-
-    //this is column check
+    //this is column check. all values in column must be unique
     valid_col = validateCol(roll, c, position);
-
-    //std::cout << "column check " << valid_col << std::endl;
-
 
     if ((valid_row == true) && (valid_col == true)) {
         //then we make insertion
-        if (row == 0) {
-            //Red
+        switch(c) {
+        case(Colour::RED):
             redRow[position] = roll;
-        }
-
-        else if (row == 1) {
-            //Yellow
+            break;
+        case(Colour::YELLOW):
             yellowRow[position] = roll;
-        }
-
-        else if (row == 2) {
-            //Blue
+            break;
+        case(Colour::BLUE):
             blueRow[position] = roll;
-        }
-
-        else {
+            break;
+        default:
             std::cout << "Error" << std::endl;
+            break;
         }
     }
 
@@ -211,17 +187,20 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
 // Lazy way to test if there is a valid place to enter a score
 // creates a copy of scoresheet and tests all possible locations
 // until a valid one is found
-bool QwintoScoreSheet::isFailedThrow(const RollOfDice& rod) const {
-    bool valid = false;
+std::vector<Colour> QwintoScoreSheet::getAvailableRows(const RollOfDice& rod) const {
+    std::vector<Colour> availableRows;
     QwintoScoreSheet copy(*this);
     for (const auto& d : rod) {
+		bool valid = false;
         for (int i = 0; i < 12; i++) {
             valid = copy.score(rod, d.getColour(), i);
-            if (valid) break;
+            if (valid) {
+				availableRows.emplace_back(d.getColour());
+				break;
+			}
         }
-        if (valid) break;
     }
-    return !valid;
+    return availableRows;
 }
 
 // Returns true if all entries of a row are filled
@@ -239,3 +218,21 @@ bool QwintoScoreSheet::isRowFull(const Colour& c) const {
     }
 }
 
+bool QwintoScoreSheet::rowContains(const Colour& c, const RollOfDice & rod) const {
+    bool contains = false;
+    switch(c) {
+    case(Colour::RED):
+        contains = redRow.contains(rod);
+        break;
+    case(Colour::YELLOW):
+        contains = yellowRow.contains(rod);
+        break;
+    case(Colour::BLUE):
+        contains = blueRow.contains(rod);
+        break;
+    default:
+        std::cerr << "QwintoScoreSheet::rowContains invoked with bad colour" << std::endl;
+        break;
+    }
+    return contains;
+}

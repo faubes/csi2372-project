@@ -20,9 +20,10 @@ class QwintoScoreSheet : public ScoreSheet {
     public:
         QwintoScoreSheet(const std::string& name);
         bool score(RollOfDice roll, Colour c, int position);
-        bool isFailedThrow(const RollOfDice& rod) const;
+        std::vector<Colour> getAvailableRows(const RollOfDice& rod) const;
         bool isRowFull(const Colour& c) const;
         bool operator!() const;
+        bool rowContains(const Colour& c, const RollOfDice & rod) const;
 };
 
 #endif

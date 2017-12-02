@@ -1,4 +1,4 @@
-// qwintoplayer.cpp
+// qwixxplayer.cpp
 /*
 *  CSI 2372 -  Fall 2017
 *  Project
@@ -9,17 +9,17 @@
 // The class QwintoPlayer holds a QwintoScoreSheet and implements the functions
 // inputBeforeRoll and inputAfterRoll.
 
-#include "qwintoplayer.h"
+#include "qwixxplayer.h"
 #include "colour.h"
 #include <string>
 
-QwintoPlayer::QwintoPlayer(const std::string& n) : Player(n), qws(n) {}
+QwixxPlayer::QwixxPlayer(const std::string& n) : Player(n), qws(n) {}
 
-void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
+void QwixxPlayer::inputBeforeRoll(RollOfDice& rod) {
     std::vector<Colour> colours;
     bool valid = false;
     while (!valid) {
-        for (Colour c : qwintoColours) {
+        for (Colour c : qwixxColours) {
             std::string msg("Roll " + colour_to_string(c) + " dice?");
             if (getYesNo(std::cout, std::cin, msg)) {
                 colours.emplace_back(c);
@@ -36,7 +36,8 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
     
 }
 
-void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
+void QwixxPlayer::inputAfterRoll(const RollOfDice& rod) {
+    /*
     std::vector<Colour> availableRows = this->qws.getAvailableRows(rod);
     if (availableRows.size() == 0) {
         if (isActive()) {
@@ -77,8 +78,9 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
             }
         }
     }
+    */
 }
 
-void QwintoPlayer::print(std::ostream& os) const {
+void QwixxPlayer::print(std::ostream& os) const {
     os << this->qws;
 }
