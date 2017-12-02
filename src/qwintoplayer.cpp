@@ -10,7 +10,6 @@
 // inputBeforeRoll and inputAfterRoll.
 
 #include "qwintoplayer.h"
-#include "gameui.h"
 #include "colour.h"
 #include <string>
 
@@ -68,7 +67,7 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
 
         bool validcol = false;
         while (validrow && !validcol) {
-            int i = getInt(std::cout, std::cin, 0, 11);
+            int i = getInt(std::cout, std::cin, "Which position in that row?", 0, 11);
             std::cout << "Writing " << static_cast<int>(rod) << " to row "
                       << colour_to_string(c) << " in cell " << i << std::endl;
             validcol = this->qws.score(rod, c, i);

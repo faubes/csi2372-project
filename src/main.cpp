@@ -1,11 +1,15 @@
 // main file with game loop, tests
+#define TESTS
+#ifdef TESTS
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
 //#define TEST_ROLLOFDICE
 //#define TEST_QWINTO_ROW
 //#define TEST_QWINTO_SCORESHEET
-#define TEST_QWINTOPLAYER
+//#define TEST_QWINTOPLAYER
+#endif
 
+#include "gameui.h"
 #include "colour.h"
 #include "randomdice.h"
 #include "rollofdice.h"
@@ -84,6 +88,42 @@ int main() {
     qp.inputAfterRoll(rod);
     std::cout << qp;
 #endif
+
+std::cout << "Welcome to Qwinto / Qwixx!" << std::endl;
+
+// TOD: Ask player to choose game version 
+
+// number of players and names of players.
+int numPlayers = getInt(std::cout, std::cin, "How many players?", 2, 12);
+
+std::vector<QwintoPlayer> players;
+
+// Create the corresponding players and RollOfDice for the game.
+RollOfDice rod;
+
+for (int i = 0; i < numPlayers; i++) {
+	std::stringstream msg;
+	msg << "What is player " << i << "\'s name? ";
+	std::string name = getString(std::cout, std::cin, msg.str());
+	players.emplace_back(QwintoPlayer(name));
+}
+
+
+
+// while end condition is not reached
+// next player takes a turn i.e., becomes active
+// get input from active player before roll
+// roll dice and show result
+// print scoresheet of active player
+// get input from active player after roll
+// score dice according to input from active player
+// loop over all non-active players
+// print scoresheet of non-active player
+// get input from non-active player
+// score dice according to input
+// loop over all players
+// calculate points for player
+
     //for stupid Visual Studio
     system("Pause");
 }

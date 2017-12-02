@@ -4,44 +4,38 @@
 QwintoScoreSheet::QwintoScoreSheet(const std::string& n) : ScoreSheet(n) {}
 
 bool QwintoScoreSheet::col_complete(int col) {
-    return ((redRow[col] != 0) && (yellowRow[col] != 0) && (blueRow[col] != 0));
+    return ((redRow[col] > 0) && (yellowRow[col] > 0) && (blueRow[col] > 0));
 }
 
 int QwintoScoreSheet::calcTotal() {
     int newScore = 0;
 
     //filled row stuff
-    if (redRow.row_complete() == 9) {
+    if (redRow.isFull()) {
         //get most right
         newScore += redRow[11];
         std::cout << redRow[11] << std::endl;
-    }
-
-    else {
+    } else {
         //return the count itself
         newScore += redRow.row_complete();
         std::cout << redRow.row_complete() << std::endl;
     }
 
-    if(yellowRow.row_complete() == 9) {
+    if(yellowRow.isFull()) {
         //get most right
         newScore += yellowRow[10];
         std::cout << yellowRow[10] << std::endl;
-    }
-
-    else {
+    } else {
         //return the count itself
         newScore += yellowRow.row_complete();
         std::cout << yellowRow.row_complete() << std::endl;
     }
 
-    if (blueRow.row_complete() == 9) {
+    if (blueRow.isFull()) {
         //get most right
         newScore += blueRow[9];
         std::cout << blueRow[9] << std::endl;
-    }
-
-    else {
+    } else {
         //return the count itself
         newScore += blueRow.row_complete();
         std::cout << blueRow.row_complete() << std::endl;
@@ -80,11 +74,9 @@ int QwintoScoreSheet::calcTotal() {
     return newScore;
 }
 
-// Helper method checks if it's ok to write a score in a certain cell
-bool QwintoScoreSheet::validate(RollOfDice roll, Colour c, int position) {
+bool QwintoScoreSheet::validateCol(RollOfDice roll, Colour c, int position) {
     bool valid = true;
     std::vector<int> values;
-
     switch(c) {
     case(Colour::RED):
         // filter out zeroes and negatives
@@ -182,7 +174,7 @@ bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {
     //std::cout << "row check " << valid_row << std::endl;
 
     //this is column check
-    valid_col = validate(roll, c, position);
+    valid_col = validateCol(roll, c, position);
 
     //std::cout << "column check " << valid_col << std::endl;
 

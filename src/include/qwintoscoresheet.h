@@ -15,7 +15,7 @@ class QwintoScoreSheet : public ScoreSheet {
         void print(std::ostream& myStream) const;
         int calcTotal();
         // The function score is to call the protected pure virtual function validate internally.
-        bool validate(RollOfDice roll, Colour c, int position);
+        bool validateCol(RollOfDice roll, Colour c, int position);
         bool operator!() const;
         bool col_complete(int col);
     public:

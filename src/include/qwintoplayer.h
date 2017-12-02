@@ -9,6 +9,7 @@
 #ifndef QWINTOPLAYER
 #define QWINTOPLAYER
 
+#include "gameui.h"
 #include "player.h"
 #include "qwintoscoresheet.h"
 
@@ -22,4 +23,3 @@ class QwintoPlayer : public Player {
 };
 
 #endif
-s
