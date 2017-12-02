@@ -115,6 +115,7 @@ int main() {
     // while end condition is not reached
     while (!gameover) {
         for (auto & p : players) {
+			std::cout << p.getName() << "\'s roll!" << std::endl;
             // next player takes a turn i.e., becomes active
             p.setActive(true);
             // get input from active player before roll
@@ -133,6 +134,8 @@ int main() {
                 if (!inactiveplayer.isActive()) {
                     // print scoresheet of non-active player
                     std::cout << inactiveplayer;
+                    std::cout << "Enter score for roll: " << std::endl;
+                    std::cout << rod;
                     // get input from non-active player
                     // score dice according to input
                     inactiveplayer.inputAfterRoll(rod);
@@ -142,9 +145,12 @@ int main() {
             p.setActive(false);
         }
     }
-
     // loop over all players
-    // calculate points for player
+    for (auto & p : players) {
+        // calculate points for player
+        std::cout << p.getName() << std::endl;
+		std::cout << "Score: " << p.getScore();
+    }
 
 #endif
     //for stupid Visual Studio

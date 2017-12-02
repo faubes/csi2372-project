@@ -29,6 +29,11 @@ class Player {
         bool isActive() const {
             return active;
         }
+        
+        std::string getName() { return name; }
+        
+        virtual int getScore() = 0;
+        
         friend ostream& operator<<(ostream& os, const Player& p)
         {
             p.print(os);

@@ -12,8 +12,9 @@
 bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
     std::string input;
     bool res;
-    os << msg << " " << "[Y/N]: ";
     for (;;) {
+        os << msg << " " << "[Y/N]: ";
+
         if (is >> input) {
             std::transform(input.begin(), input.end(), input.begin(), ::tolower);
             if (input == "yes" || input == "y") {
@@ -25,9 +26,11 @@ bool getYesNo(std::ostream& os, std::istream& is, std::string msg) {
                 res = false;
                 break;
             }
-            os << msg << " " << "[Y/N]: ";
+        } else {
             is.clear();
+            is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
+
     }
     return res;
 }
@@ -40,8 +43,10 @@ int getInt(std::ostream& os, std::istream& is, std::string msg, int low, int hig
             if (res >= low & res <= high) {
                 break;
             }
+        } else {
             os << "That's not a valid number" << std::endl;
             is.clear();
+            is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
     os << "You entered " << res << std::endl;
@@ -56,8 +61,10 @@ std::string getString(std::ostream& os, std::istream& is, std::string msg) {
             if (input.size() > 0) {
                 break;
             }
+        } else {
             os << "That's not a valid input" << std::endl;
             is.clear();
+            is.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
     }
     os << "You entered " << input << std::endl;

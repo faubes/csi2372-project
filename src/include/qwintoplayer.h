@@ -23,6 +23,7 @@ class QwintoPlayer : public Player {
         bool operator!() const {
 			return (!qws);
 		}
+		int getScore() { return qws.setTotal(); }
 };
 
 #endif
