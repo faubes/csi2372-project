@@ -86,6 +86,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
         qwintoArray[1] = -1;
         qwintoArray[5] = -1;
         //for validation testing purposes
+        /*
         qwintoArray[2] = 2;
         qwintoArray[3] = 3;
         qwintoArray[4] = 6;
@@ -95,6 +96,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
         qwintoArray[9] = 13;
         qwintoArray[10] = 15;
         qwintoArray[11] = 16;
+        */
     }
 
     else if (C == Colour::YELLOW) {
@@ -102,6 +104,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
         qwintoArray[6] = -1;
         qwintoArray[11] = -1;
         //testing
+        /*
         qwintoArray[1] = 1;
         qwintoArray[2] = 3;
         qwintoArray[3] = 4;
@@ -111,6 +114,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
 
         //remove next
         //qwintoArray[9] = 15;
+        */
     }
 
     else if (C == Colour::BLUE) {
@@ -118,6 +122,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
         qwintoArray[10] = -1;
         qwintoArray[11] = -1;
         //testing
+        /*
         qwintoArray[0] = 1;
         qwintoArray[1] = 3;
         qwintoArray[3] = 6;
@@ -127,6 +132,7 @@ QwintoRow<C>::QwintoRow() : colour(C) {
         //remove next
         //qwintoArray[2] = 4;
         //qwintoArray[9] = 11;
+        */
     }
 
     else {

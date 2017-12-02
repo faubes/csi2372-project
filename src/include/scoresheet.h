@@ -41,7 +41,7 @@ class ScoreSheet {
         virtual void print(std::ostream& myStream) const;
 
         // Finally, the not operator should be virtual and to return true if the ScoreSheet indicates that the game has ended.
-        virtual bool operator!() const;
+        virtual bool operator!() const = 0;
 
     public:
         /* A score should be entered by the function score which accepts a RollOfDice and the user selected
@@ -69,15 +69,18 @@ class ScoreSheet {
         }
 
         //get failed throw
-        int getFailedThrows() {
+        int getFailedThrows() const {
             return failed_throws;
         }
+
+		std::string getName() const { return name; }
 
         //https://stackoverflow.com/questions/15786169/global-operators-and-polymorphism
         /* You need to overload the insertion operator for
         	the class ScoreSheet for printing. This global operator should behave polymorphically, even though,
         	there is no polymorphism for global operators and functions.*/
         friend std::ostream& operator << (std::ostream& os, const ScoreSheet& scoresheet) {
+			os << "Player: " << scoresheet.getName() << std::endl;
             scoresheet.print(os);
             return os;
         }

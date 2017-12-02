@@ -31,10 +31,9 @@ void QwintoPlayer::inputBeforeRoll(RollOfDice& rod) {
         else {
             valid = true;
             rod = RollOfDice(colours);
-            rod.roll();
         }
     }
-    this->setActive(true);
+    
 }
 
 void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
@@ -42,7 +41,6 @@ void QwintoPlayer::inputAfterRoll(const RollOfDice& rod) {
         if (isActive()) {
             std::cout << "Uh oh! Failed throw!" << std::endl;
             // this->qws.incrementFailedThrows();
-            this->setActive(false);
         }
         else {
             std::cout << "Too bad. You can't use this roll." << std::endl;

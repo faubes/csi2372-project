@@ -141,7 +141,11 @@ void QwintoScoreSheet::print(std::ostream& os) const {
 }
 
 bool QwintoScoreSheet::operator!() const {
-    return false;
+	int completerows = 0;
+	if (this->redRow.isFull()) completerows++;
+	if (this->yellowRow.isFull()) completerows++;
+	if (this->blueRow.isFull()) completerows++;
+	return ((completerows > 1) || (this->getFailedThrows() == 5));
 }
 
 bool QwintoScoreSheet::score(RollOfDice roll, Colour c, int position) {

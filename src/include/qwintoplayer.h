@@ -20,6 +20,9 @@ class QwintoPlayer : public Player {
         void inputBeforeRoll(RollOfDice& rod);
         void inputAfterRoll(const RollOfDice& rod);
         void print(std::ostream& myStream) const;
+        bool operator!() const {
+			return (!qws);
+		}
 };
 
 #endif

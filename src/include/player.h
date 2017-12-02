@@ -34,6 +34,7 @@ class Player {
             p.print(os);
             return os;
         }
+        virtual bool operator!() const = 0;
 };
 
 #endif

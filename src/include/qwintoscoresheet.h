@@ -16,13 +16,13 @@ class QwintoScoreSheet : public ScoreSheet {
         int calcTotal();
         // The function score is to call the protected pure virtual function validate internally.
         bool validateCol(RollOfDice roll, Colour c, int position);
-        bool operator!() const;
         bool col_complete(int col);
     public:
         QwintoScoreSheet(const std::string& name);
         bool score(RollOfDice roll, Colour c, int position);
         bool isFailedThrow(const RollOfDice& rod) const;
         bool isRowFull(const Colour& c) const;
+        bool operator!() const;
 };
 
 #endif
