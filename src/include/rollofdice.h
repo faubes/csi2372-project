@@ -21,12 +21,14 @@ class RollOfDice {
 
     public:
         RollOfDice();
-        RollOfDice(const std::vector<Colour> &colours);
-
+		RollOfDice(const std::vector<Colour>& colours);
         void addDice(const Dice& d);
-
+		
         RollOfDice getPair(int i, int j) const;
+        
+		RollOfDice getWhitePair() const;
 
+		
         void roll();
 		size_t size() const { return rod.size(); }
 		
@@ -34,6 +36,8 @@ class RollOfDice {
         using iterator = std::vector<Dice>::iterator;
         using const_iterator = std::vector<Dice>::const_iterator;
 
+		void clear() { rod.clear(); }
+		
         iterator begin() {
             return rod.begin();
         }
@@ -53,8 +57,14 @@ class RollOfDice {
             return rod.cend();
         }
 
+		// overloads subscript operator for access to array
+        Dice operator[] (const int index) const {
+            return rod[index];
+        }
+
         // converts roll to int by summing face values
         operator int() const;
+
 
         friend ostream& operator<<(ostream& os, const RollOfDice& rod);
 

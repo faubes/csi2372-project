@@ -13,17 +13,26 @@ class QwixxRow {
     public:
 
         bool locked = false;
+        
+        // stores value of last score entered
         int last = 0;
+        
+        // points to cell in which last entry was scored
         typename T::iterator it;
+        
         QwixxRow();
 
         T qwixxContainer{};
 
         void add(int i);
+        
         Colour getColour() const;
-        T getContainer() {
-            return qwixxContainer;
-        }
+        
+        // TODO: should be removed eventually
+        T getContainer() { return qwixxContainer; }
+
+        // helper tests if row contains value
+        bool contains(const RollOfDice &rod) const;
 
         //+= operator to add RollOfDice of size 2, error checking throw exception on error
         QwixxRow<T,C>& operator+=(const RollOfDice& rod) {
@@ -39,9 +48,14 @@ class QwixxRow {
                     v = 0;
                 }
             }
+            if (it == (qwixxContainer.end() -1)) {
+				locked = true;
+			}
             return *this;
         }
 
+		// returns value of last entry score in the row
+		int getLast() const { return last; }
 
 		// methods that return iterators to container
 		// allowing for range loops
@@ -66,6 +80,8 @@ class QwixxRow {
         const_iterator cend() const {
             return qwixxContainer.cend();
         }
+        
+        bool operator!() const { return !locked; }
         
         template <typename T1, const Colour C1>
         friend std::ostream& operator<<(std::ostream& os, const QwixxRow<T1, C1>& qr);
@@ -105,4 +121,10 @@ std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
     os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << std::endl;
     os << std::setw(10) << "" << line3.str() << std::endl;
     return os;
+}
+
+template <typename T, const Colour C>
+bool QwixxRow<T,C>::contains(const RollOfDice &rod) const {
+	auto elem = std::find(qwixxContainer.begin(), qwixxContainer.end(), static_cast<int>(rod));
+    return (elem != qwixxContainer.end());
 }

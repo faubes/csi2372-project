@@ -30,6 +30,8 @@ class Dice {
         int getValue() const {
             return face;
         }
+        // converts dice to int by returning face value
+        operator int() const { return face; }
 };
 
 #endif

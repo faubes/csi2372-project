@@ -3,16 +3,17 @@
 
 #include <string>
 #include <array>
+#include <vector>
 
 enum class Colour { RED, YELLOW, BLUE, GREEN, WHITE };
 
 
 // arrays containing all colours for iterating
-const std::array<Colour, 3> qwintoColours = { Colour::RED,
+const std::vector<Colour> qwintoColours = { Colour::RED,
                                               Colour::YELLOW, Colour::BLUE
                                             };
 
-const std::array<Colour, 6> qwixxColours = { Colour::RED,
+const std::vector<Colour> qwixxColours = { Colour::RED,
                                              Colour::YELLOW, Colour::BLUE, Colour::GREEN, Colour::WHITE,
                                              Colour::WHITE
                                            };
