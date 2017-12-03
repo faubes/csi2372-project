@@ -22,3 +22,8 @@ void QwixxPlayer::inputAfterRoll(const RollOfDice& rod) { }
 void QwixxPlayer::print(std::ostream& os) const {
     os << this->qws;
 }
+
+int QwixxPlayer::getScore() { return 0; }
+
+bool QwixxPlayer::operator!() const {
+	return false; }

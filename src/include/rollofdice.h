@@ -28,7 +28,8 @@ class RollOfDice {
         RollOfDice getPair(int i, int j) const;
 
         void roll();
-
+		size_t size() const { return rod.size(); }
+		
         // methods needed to enable range loops over RoD
         using iterator = std::vector<Dice>::iterator;
         using const_iterator = std::vector<Dice>::const_iterator;

@@ -8,17 +8,20 @@
 using std::vector;
 using std::list;
 
-class QwixxScoreSheet : public ScoreSheet {
-	QwixxRow < std::vector<int>, Colour::RED > redRow;
-	QwixxRow < std::vector<int>, Colour::YELLOW > yellowRow;
-	QwixxRow < std::list<int>, Colour::GREEN > greenRow;
-	QwixxRow < std::list<int>, Colour::BLUE > blueRow;
 
-	void print(std::ostream& myStream) const;
-	int calcTotal();
+QwixxScoreSheet::QwixxScoreSheet(const std::string& name) : ScoreSheet(name) {}
 
-	public:
-		QwixxScoreSheet(const std::string& name);
-		bool score(RollOfDice roll, Colour c, int position);
-		bool isFailedThrow(const RollOfDice& rod) const;
-};
+void QwixxScoreSheet::print(std::ostream& myStream) const {}
+int QwixxScoreSheet::calcTotal() {
+    return 0;
+}
+bool QwixxScoreSheet::score(RollOfDice roll, Colour c, int position) {
+    return false;
+}
+
+bool QwixxScoreSheet::isFailedThrow(const RollOfDice& rod) const {
+    return false;
+}
+bool QwixxScoreSheet::operator! () const {
+    return false;
+}

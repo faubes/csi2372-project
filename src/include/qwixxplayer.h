@@ -20,10 +20,8 @@ class QwixxPlayer : public Player {
         void inputBeforeRoll(RollOfDice& rod);
         void inputAfterRoll(const RollOfDice& rod);
         void print(std::ostream& myStream) const;
-        bool operator!() const {
-			return (!qws);
-		}
-		int getScore() { return qws.setTotal(); }
+        bool operator!() const ;
+		int getScore() ;
 };
 
 #endif
