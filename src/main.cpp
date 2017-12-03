@@ -1,7 +1,7 @@
 // main file with game loop, tests
 
-#define GAMELOOP
-//#define TESTS
+//#define GAMELOOP
+#define TESTS
 #ifdef TESTS
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
@@ -9,7 +9,6 @@
 //#define TEST_QWINTO_ROW
 //#define TEST_QWINTO_SCORESHEET
 //#define TEST_QWINTOPLAYER
-//#define TEST_QWIXX_ROW
 #define TEST_QWIXX_SCORESHEET
 #endif
 
@@ -96,21 +95,9 @@ int main() {
     std::cout << qp;
 #endif
 
-#ifdef TEST_QWIXX_ROW
-	QwixxRow < std::list<int>, Colour::RED > myQwixxRed;
-	QwixxRow < std::vector<int>, Colour::YELLOW > myQwixxYellow;
-	std::cout << myQwixxRed << std::endl;
-	std::cout << colour_to_string(myQwixxRed.getColour()) << std::endl;
-	std::cout << myQwixxYellow << std::endl;
-	std::cout << colour_to_string(myQwixxYellow.getColour()) << std::endl;
-#endif
-
 #ifdef TEST_QWIXX_SCORESHEET
 	QwixxScoreSheet qws2("Art");
-	std::cout << qws2.redRow << std::endl;
-	std::cout << qws2.yellowRow << std::endl;
-	std::cout << qws2.greenRow << std::endl;
-	std::cout << qws2.blueRow << std::endl;
+	std::cout << qws2;
 #endif
 
 #ifdef GAMELOOP

@@ -10,7 +10,7 @@ using std::vector;
 using std::list;
 
 class QwixxScoreSheet : public ScoreSheet {
-	void print(std::ostream& myStream) const;
+	void print(std::ostream& os) const;
 	int calcTotal();
 
 public:
@@ -23,6 +23,6 @@ public:
 	bool score(RollOfDice roll, Colour c, int position);
 	bool isFailedThrow(const RollOfDice& rod) const;
 	bool operator!() const;
-};
+	};
 
 #endif
