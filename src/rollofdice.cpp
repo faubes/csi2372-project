@@ -21,10 +21,10 @@ RollOfDice::RollOfDice(const std::vector<Colour> &colours) :
 }
 
 void RollOfDice::addDice(const Dice& d) {
-	rod.emplace_back(Dice(c));
+	rod.emplace_back(Dice(d));
 }
 
-RollOfDice RollOfDice::getPair(int i, int j)
+RollOfDice RollOfDice::getPair(int i, int j) const
 	{
 	RollOfDice pairOfDice;
 	int counter = 1;
