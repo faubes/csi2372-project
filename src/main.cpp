@@ -1,7 +1,7 @@
 // main file with game loop, tests
 
-//#define GAMELOOP
-#define TESTS
+#define GAMELOOP
+//#define TESTS
 #ifdef TESTS
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
@@ -104,8 +104,8 @@ int main() {
     std::cout << "Welcome to Qwinto / Qwixx!" << std::endl;
 
     // Ask player to choose game version
-    bool qwinto, qwixx;
-    while (!qwinto & !qwixx) {
+    bool qwinto =false, qwixx =false;
+    while (!qwinto && !qwixx) {
         qwinto = getYesNo(std::cout, std::cin, "Would you like to play Qwinto?");
         if (!qwinto) {
             qwixx = getYesNo(std::cout, std::cin, "How about Qwixx, then?");

@@ -22,8 +22,38 @@ QwixxScoreSheet::QwixxScoreSheet(const std::string& name) :
 int QwixxScoreSheet::calcTotal() {
     return 0;
 }
-bool QwixxScoreSheet::score(RollOfDice roll, Colour c) {
-    return false;
+bool QwixxScoreSheet::score(RollOfDice rod, Colour c) {
+	bool valid = false;
+    try {
+        switch(c) {
+        case(Colour::RED):
+            redRow += rod;
+            valid = true;
+            break;
+        case(Colour::YELLOW):
+            yellowRow += rod;
+            valid = true;
+            break;
+        case(Colour::BLUE):
+            blueRow += rod;
+            valid = true;
+            break;
+        case(Colour::GREEN):
+            greenRow += rod;
+            valid = true;
+            break;
+        default:
+            std::cout << "Error?" << std::endl;
+            valid = false;
+            break;
+        }
+	}
+        catch (std::string s) {
+			valid = false;
+            std::cout << s << std::endl;
+
+        }
+    return valid;
 }
 
 bool QwixxScoreSheet::isFailedThrow(const RollOfDice& rod) const {
@@ -76,7 +106,7 @@ std::vector<Colour> QwixxScoreSheet::getAvailableBonusRows(const RollOfDice& rod
     for (const auto& d : rod) {
         if (d.getColour() != Colour::WHITE) {
             if (canScoreRow(d.getColour(), d + w1) ||
-                canScoreRow(d.getColour(), d + w2)) {
+                    canScoreRow(d.getColour(), d + w2)) {
                 res.emplace_back(d.getColour());
             }
         }

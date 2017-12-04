@@ -13,23 +13,28 @@ class QwixxRow {
     public:
 
         bool locked = false;
-        
+
         // stores value of last score entered
         int last = 0;
         
+        // number of values scored
+		int counter = 0;
+		
         // points to cell in which last entry was scored
-        typename T::iterator it;
-        
+        // typename T::iterator it;
+
         QwixxRow();
 
         T qwixxContainer{};
 
         void add(int i);
-        
+
         Colour getColour() const;
-        
+
         // TODO: should be removed eventually
-        T getContainer() { return qwixxContainer; }
+        T getContainer() {
+            return qwixxContainer;
+        }
 
         // helper tests if row contains value
         bool contains(const RollOfDice &rod) const;
@@ -39,26 +44,37 @@ class QwixxRow {
             int val = static_cast<int>(rod);
             if (!rod.size() == 2)
                 throw "Can't add more than two dice to QwixxRow";
-            if ((last != 0) && (last >= val))
-                throw "Can't score in this QwixxRow";
+            if ((C == Colour::RED) || (C == Colour::YELLOW)) {
+                if ((last != 0) && (last > val))
+                    throw "Can't score in this QwixxRow";
+            }
+            else if ((C == Colour::BLUE) || (C == Colour::GREEN)) {
+                if ((last != 0) && (last < val))
+                    throw "Can't score in this QwixxRow";
+
+            } else throw "trying to add to invalid row";
+
             for (auto &v : qwixxContainer) {
                 if (v == val) {
-                    it = &v;
+                    counter++;
                     last = v;
                     v = 0;
                 }
             }
-            if (it == (qwixxContainer.end() -1)) {
-				locked = true;
-			}
+            if (((C == Colour::RED) || (C == Colour::YELLOW) && (last == 12) && (counter >= 5)) ||
+				((C == Colour::BLUE) || (C == Colour::GREEN) && (last == 2) && (counter >= 5))) {
+                locked = true;
+            }             
             return *this;
         }
 
-		// returns value of last entry score in the row
-		int getLast() const { return last; }
+        // returns value of last entry score in the row
+        int getLast() const {
+            return last;
+        }
 
-		// methods that return iterators to container
-		// allowing for range loops
+        // methods that return iterators to container
+        // allowing for range loops
         using iterator = typename T::iterator;
         using const_iterator = typename T::const_iterator;
 
@@ -80,9 +96,10 @@ class QwixxRow {
         const_iterator cend() const {
             return qwixxContainer.cend();
         }
-        
-        bool operator!() const { return !locked; }
-        
+        bool operator!() const {
+            return !locked;
+        }
+
         template <typename T1, const Colour C1>
         friend std::ostream& operator<<(std::ostream& os, const QwixxRow<T1, C1>& qr);
 };
@@ -105,7 +122,7 @@ QwixxRow<T, C>::QwixxRow() {
 template <typename T, const Colour C>
 std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
     std::stringstream line1, line2, line3;
-	for (const auto &x : qr) {
+    for (const auto &x : qr) {
         if (x != 0) {
             line1 << "----";
             line2 << "|" << std::setw(2) << x <<"|";
@@ -125,6 +142,6 @@ std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
 
 template <typename T, const Colour C>
 bool QwixxRow<T,C>::contains(const RollOfDice &rod) const {
-	auto elem = std::find(qwixxContainer.begin(), qwixxContainer.end(), static_cast<int>(rod));
+    auto elem = std::find(qwixxContainer.begin(), qwixxContainer.end(), static_cast<int>(rod));
     return (elem != qwixxContainer.end());
 }
