@@ -73,6 +73,21 @@ class QwixxRow {
             return last;
         }
 
+		//get counter
+		int getCounter() const {
+			return counter;
+		}
+
+		//remove this later set counter
+		/*void setCounter(int i) {
+			counter = i;
+		}*/
+
+		//get locked
+		bool getLocked() const {
+			return locked;
+		}
+
         // methods that return iterators to container
         // allowing for range loops
         using iterator = typename T::iterator;
@@ -134,9 +149,17 @@ std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
             line3 << "----";
         }
     }
-    os << std::left << std::setw(10) << "" << line1.str() << std::endl;
-    os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << std::endl;
-    os << std::setw(10) << "" << line3.str() << std::endl;
+
+
+    os << std::left << std::setw(10) << "" << line1.str() << "---" << std::endl;
+	if (qr.getLocked() == true) {
+		os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " L " << std::endl;
+	}
+
+	else {
+		os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " U " << std::endl;
+	}
+	os << std::setw(10) << "" << line3.str() << "---" << std::endl;
     return os;
 }
 
