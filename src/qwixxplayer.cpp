@@ -45,18 +45,17 @@ void QwixxPlayer::inputAfterRollActive(const RollOfDice& rod) {
         return;
     }
 
-    bool doBonusScore = true, 
-		valid = false, 
-		validColourChosen = false, 
-		validWhiteChosen = false;
+    bool doBonusScore = true,
+         valid = false,
+         validColourChosen = false,
+         validWhiteChosen = false;
 
     RollOfDice pair;
     Colour chosen;
-    
+
     while (doBonusScore && !valid) {
         doBonusScore = getYesNo(std::cout, std::cin, "Do you wish to score a bonus roll?");
-        if (doBonusScore) {
-
+        while (!validColourChosen) {
             for (const auto& d: rod ) {
                 // if this dice's colour is one of the available scoring rows
                 bool found = std::find(availableBonusRows.begin(),
@@ -74,29 +73,36 @@ void QwixxPlayer::inputAfterRollActive(const RollOfDice& rod) {
                     }
                 }
             }
-            while (!validWhiteChosen) {
-				std::stringstream msg;
-				msg << "Use first white dice: " << static_cast<int>(rod[rod.size()-2]) << " ?";
+        }
+        while (!validWhiteChosen) {
+            std::stringstream msg;
+            msg << "Use first white dice: " << static_cast<int>(rod[rod.size()-2]) << " ?";
+            validWhiteChosen = getYesNo(std::cout, std::cin, msg.str());
+
+            if (validWhiteChosen) {
+                pair.addDice(rod[rod.size()-2]);
+                break;
+            }
+            else {
+                msg.str(std::string());
+                msg <<"Use second white dice: " << static_cast<int>(rod[rod.size()-1]) << " ?";
                 validWhiteChosen =
                     getYesNo(std::cout, std::cin, msg.str());
-                if (!validWhiteChosen) {
-					msg.clear();
-					msg <<"Use second white dice: " << static_cast<int>(rod[rod.size()-1]) << " ?";
-                    validWhiteChosen =
-                        getYesNo(std::cout, std::cin, msg.str());
-                }
-                if (!validWhiteChosen) {
-                    std::cout << "You need to choose at least one of the white dice to pair with the coloured dice." <<  std::endl;
-                }
             }
-            if (validWhiteChosen && validColourChosen)
-                valid = true;
-            if (!valid)
-                std::cout << "Hmm, invalid selection of dice." << std::endl;
+            if (validWhiteChosen) {
+                pair.addDice(rod[rod.size()-1]);
+            }
+            else {
+                std::cout << "You need to choose at least one of the white dice to pair with the coloured dice." <<  std::endl;
+            }
         }
-        qws.score(pair, chosen);
-
+        if (validWhiteChosen && validColourChosen)
+            valid = true;
+        if (!valid)
+            std::cout << "Hmm, invalid selection of dice." << std::endl;
     }
+    qws.score(pair, chosen);
+	inputAfterRollInactive(rod);
 }
 
 void QwixxPlayer::inputAfterRollInactive(const RollOfDice& rod) {
