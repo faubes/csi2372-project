@@ -17,9 +17,9 @@ class QwixxPlayer : public Player {
         
         QwixxScoreSheet qws;
         static std::vector<Colour> availableColours;
-
-		void inputAfterRollActive(const RollOfDice& rod);
-		void inputAfterRollInactive(const RollOfDice& rod);
+		void removeLockedDice();
+		void doBonusScore(const RollOfDice& rod, std::vector<Colour> rows);
+		void doScore(const RollOfDice& rod, std::vector<Colour> rows);
         
     public:
 		QwixxPlayer(const std::string& name);

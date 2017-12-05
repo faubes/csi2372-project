@@ -31,6 +31,7 @@ public:
 	bool score(RollOfDice roll, Colour c);
 	bool isFailedThrow(const RollOfDice& rod) const;
 	bool operator!() const;
+	std::vector<Colour> getLockedRows() const;
 	};
 
 #endif

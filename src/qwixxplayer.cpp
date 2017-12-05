@@ -24,95 +24,85 @@ void QwixxPlayer::inputBeforeRoll(RollOfDice& rod) {
 
 void QwixxPlayer::inputAfterRoll(const RollOfDice& rod) {
 
+    // availableRows == 0 means activePlayer can't enter a WHITE+WHITE score
+    std::vector<Colour> availableRows = this->qws.getAvailableRows(rod);
+
     if (isActive()) {
-        inputAfterRollActive(rod);
+        // availableBonusRows == 0 means activePlayer can't enter WHITE+NONWHITE score
+        std::vector<Colour> availableBonusRows = this->qws.getAvailableBonusRows(rod);
+
+        if (availableRows.size() + availableBonusRows.size() == 0) {
+            std::cout << "Too bad. You can't use this roll." << std::endl;
+            this->qws.incrementFailedThrows();
+            return;
+        } else {
+            doBonusScore(rod, availableBonusRows);
+            doScore(rod, availableRows);
+        }
     }
     else {
-        inputAfterRollInactive(rod);
+        if (!availableRows.empty()) {
+            doScore(rod, availableRows);
+        }
+        else {
+            std::cout << "Too bad. You can't use this roll." << std::endl;
+            return;
+        }
     }
+    removeLockedDice();
 }
 
 // Helper method for processing active player's choices
-void QwixxPlayer::inputAfterRollActive(const RollOfDice& rod) {
-    // availableRows == 0 means activePlayer can't enter a WHITE+WHITE score
-    std::vector<Colour> availableRows = this->qws.getAvailableRows(rod);
-    // availableBonusRows == 0 means activePlayer can't enter WHITE+NONWHITE score
-    std::vector<Colour> availableBonusRows = this->qws.getAvailableBonusRows(rod);
-
-    if (availableRows.size() + availableBonusRows.size() == 0) {
-        std::cout << "Too bad. You can't use this roll." << std::endl;
-        this->qws.incrementFailedThrows();
-        return;
-    }
+void QwixxPlayer::doBonusScore(const RollOfDice& rod, std::vector<Colour> availableBonusRows) {
 
     bool doBonusScore = true,
          valid = false,
          validColourChosen = false,
          validWhiteChosen = false;
-
     RollOfDice pair;
     Colour chosen;
 
-    while (doBonusScore && !valid) {
-        doBonusScore = getYesNo(std::cout, std::cin, "Do you wish to score a bonus roll?");
-        while (!validColourChosen) {
-            for (const auto& d: rod ) {
-                // if this dice's colour is one of the available scoring rows
-                bool found = std::find(availableBonusRows.begin(),
-                                       availableBonusRows.end(),
-                                       d.getColour())
-                             != availableBonusRows.end();
-                if (found) {
-                    std::stringstream msg;
-                    msg << "Use " << colour_to_string(d.getColour()) << " dice: " << static_cast<int>(d) << "?";
-                    if (getYesNo(std::cout, std::cin, msg.str())) {
-                        validColourChosen = true;
-                        pair.addDice(d);
-                        chosen = d.getColour();
-                        break;
-                    }
+    if (!getYesNo(std::cout, std::cin, "Do you wish to score a bonus roll?"))
+        return;
+    while (!validColourChosen) {
+        for (const auto& d: rod ) {
+            // check to see if this dice's colour is one of the available scoring rows
+            bool found = std::find(availableBonusRows.begin(),
+                                   availableBonusRows.end(),
+                                   d.getColour())
+                         != availableBonusRows.end();
+            if (found) {
+                std::stringstream msg;
+                msg << "Use " << colour_to_string(d.getColour())
+                    << " dice: " << static_cast<int>(d) << "?";
+                if (getYesNo(std::cout, std::cin, msg.str())) {
+                    validColourChosen = true;
+                    pair.addDice(d);
+                    chosen = d.getColour();
+                    break;
                 }
             }
         }
-        while (!validWhiteChosen) {
+    }
+    while (!validWhiteChosen) {
+        for (int i = 2; i >= 1; i--) {
             std::stringstream msg;
-            msg << "Use first white dice: " << static_cast<int>(rod[rod.size()-2]) << " ?";
+            msg << "Use white dice " << (3-i) << ": " << static_cast<int>(rod[rod.size()-i]) << " ?";
             validWhiteChosen = getYesNo(std::cout, std::cin, msg.str());
-
             if (validWhiteChosen) {
-                pair.addDice(rod[rod.size()-2]);
+                pair.addDice(rod[rod.size()-i]);
                 break;
             }
-            else {
-                msg.str(std::string());
-                msg <<"Use second white dice: " << static_cast<int>(rod[rod.size()-1]) << " ?";
-                validWhiteChosen =
-                    getYesNo(std::cout, std::cin, msg.str());
-            }
-            if (validWhiteChosen) {
-                pair.addDice(rod[rod.size()-1]);
-            }
-            else {
-                std::cout << "You need to choose at least one of the white dice to pair with the coloured dice." <<  std::endl;
-            }
         }
-        if (validWhiteChosen && validColourChosen)
-            valid = true;
-        if (!valid)
-            std::cout << "Hmm, invalid selection of dice." << std::endl;
+        if (!validWhiteChosen)
+            std::cout << "You need to choose at least one of the white dice to pair with the coloured dice." <<  std::endl;
     }
     qws.score(pair, chosen);
-	inputAfterRollInactive(rod);
 }
 
-void QwixxPlayer::inputAfterRollInactive(const RollOfDice& rod) {
 
-    // availableRows == 0 means inactivePlayer can't enter a WHITE+WHITE score
-    std::vector<Colour> availableRows = this->qws.getAvailableRows(rod);
-    if (availableRows.size() == 0) {
-        std::cout << "Too bad. You can't use this roll." << std::endl;
-        return;
-    }
+void QwixxPlayer::doScore(const RollOfDice& rod, std::vector<Colour> availableRows) {
+
     bool doScore = true, valid = false;
     while (doScore && !valid) {
         doScore = getYesNo(std::cout, std::cin, "Do you wish to score this roll?");
@@ -141,5 +131,19 @@ int QwixxPlayer::getScore() {
 }
 
 bool QwixxPlayer::operator!() const {
-    return false;
+    return !qws;
+}
+
+void QwixxPlayer::removeLockedDice() {
+	std::cout << "removing locked dice?" << std::endl;
+    std::vector<Colour> lockedRows = qws.getLockedRows();
+    if (!lockedRows.empty()) {
+		std::cout << "found locked rows to remove" << std::endl;
+        for (Colour c : availableColours) {
+			std::cout << colour_to_string(c);
+            std::vector<Colour>::iterator pos = std::find(lockedRows.begin(), lockedRows.end(), c);
+            if (pos != lockedRows.end())
+                availableColours.erase(pos);
+        }
+    }
 }

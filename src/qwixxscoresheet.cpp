@@ -23,7 +23,7 @@ int QwixxScoreSheet::calcTotal() {
     return 0;
 }
 bool QwixxScoreSheet::score(RollOfDice rod, Colour c) {
-	bool valid = false;
+    bool valid = false;
     try {
         switch(c) {
         case(Colour::RED):
@@ -47,12 +47,12 @@ bool QwixxScoreSheet::score(RollOfDice rod, Colour c) {
             valid = false;
             break;
         }
-	}
-        catch (std::string s) {
-			valid = false;
-            std::cout << s << std::endl;
+    }
+    catch (std::string s) {
+        valid = false;
+        std::cerr << s << std::endl;
 
-        }
+    }
     return valid;
 }
 
@@ -60,7 +60,12 @@ bool QwixxScoreSheet::isFailedThrow(const RollOfDice& rod) const {
     return false;
 }
 bool QwixxScoreSheet::operator! () const {
-    return false;
+    int lockCount = 0;
+    if (!redRow) lockCount++;
+    if (!yellowRow) lockCount++;
+    if (!blueRow) lockCount++;
+    if (!greenRow) lockCount++;
+    return ((getFailedThrows() >3) || (lockCount > 1));
 }
 
 void QwixxScoreSheet::print(std::ostream& os) const {
@@ -128,4 +133,13 @@ std::vector<Colour> QwixxScoreSheet::getAvailableRows(const RollOfDice& rod) con
         }
     }
     return res;
+}
+
+std::vector<Colour> QwixxScoreSheet::getLockedRows() const {
+    std::vector<Colour> lockedRows;
+    if (!redRow) lockedRows.emplace_back(Colour::RED);
+    if (!blueRow) lockedRows.emplace_back(Colour::BLUE);
+    if (!yellowRow) lockedRows.emplace_back(Colour::YELLOW);
+    if (!greenRow) lockedRows.emplace_back(Colour::GREEN);
+    return lockedRows;
 }
