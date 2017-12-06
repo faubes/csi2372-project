@@ -1,7 +1,7 @@
 // main file with game loop, tests
 
-#define GAMELOOP
-//#define TESTS
+//#define GAMELOOP
+#define TESTS
 #ifdef TESTS
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE
@@ -98,6 +98,7 @@ int main() {
 #ifdef TEST_QWIXX_SCORESHEET
 	QwixxScoreSheet qws2("Art");
 	std::cout << qws2;
+	std::cout << qws2.setTotal() << std::endl;
 #endif
 
 #ifdef GAMELOOP
