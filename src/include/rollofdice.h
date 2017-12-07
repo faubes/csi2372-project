@@ -12,6 +12,7 @@
 #include "dice.h"
 #include "colour.h"
 #include <vector>
+#include <set>
 #include <iostream>
 
 using std::ostream;

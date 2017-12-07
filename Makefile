@@ -1,6 +1,6 @@
 # template from https://spin.atomicobject.com/2016/08/26/makefile-c-projects/
 
-TARGET_EXEC ?= qwinto
+TARGET_EXEC ?= dicegame
 
 BUILD_DIR ?= ./build
 SRC_DIRS ?= ./src

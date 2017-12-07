@@ -1,3 +1,11 @@
+// scoresheet.cpp
+/*
+*  CSI 2372 -  Fall 2017
+*  Project
+*  github.com/faubes
+*  github.com/agbleung
+*/
+
 #include "scoresheet.h"
 
 //Base class

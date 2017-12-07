@@ -1,7 +1,18 @@
+// main.cpp
+/*
+*  CSI 2372 -  Fall 2017
+*  Project
+*  github.com/faubes
+*  github.com/agbleung
+*/
+
 // main file with game loop, tests
 
-//#define GAMELOOP
-#define TESTS
+// Main compile flag to play the game
+#define GAMELOOP
+
+// Various unit tests
+//#define TESTS
 #ifdef TESTS
 //#define TEST_COLOUR
 //#define TEST_RANDOMDICE

@@ -20,7 +20,6 @@ RollOfDice::RollOfDice(const std::vector<Colour>& colours) :
     }
 }
 
-
 void RollOfDice::addDice(const Dice& d) {
     rod.emplace_back(Dice(d));
 }

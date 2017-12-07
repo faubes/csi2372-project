@@ -1,3 +1,12 @@
+// qwixxscoresheet.h
+/*
+*  CSI 2372 -  Fall 2017
+*  Project
+*  github.com/faubes
+*  github.com/agbleung
+*/
+
+
 #ifndef QWIXXSCORESHEET
 #define QWIXXSCORESHEET
 
@@ -28,9 +37,11 @@ public:
 	std::vector<Colour> getAvailableRows(const RollOfDice& rod) const;
 	// Checks if a combination WHITE+NONWHITE can be scored
 	std::vector<Colour> getAvailableBonusRows(const RollOfDice& rod) const;
+	// Adds a score (value of a pair) to a row
 	bool score(RollOfDice roll, Colour c);
 	bool isFailedThrow(const RollOfDice& rod) const;
 	bool operator!() const;
+	// returns colours for rows which are locked
 	std::vector<Colour> getLockedRows() const;
 	int scoreForEntriesFilled(int i);
 	};

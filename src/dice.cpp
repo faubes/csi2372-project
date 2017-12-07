@@ -1,4 +1,4 @@
-// dice.h
+// dice.cpp
 /*
 *  CSI 2372 -  Fall 2017
 *  Project

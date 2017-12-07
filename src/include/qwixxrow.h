@@ -1,3 +1,11 @@
+// qwixxrow.h
+/*
+*  CSI 2372 -  Fall 2017
+*  Project
+*  github.com/faubes
+*  github.com/agbleung
+*/
+
 #pragma once
 
 #include "colour.h"
@@ -16,10 +24,10 @@ class QwixxRow {
 
         // stores value of last score entered
         int last = 0;
-        
+
         // number of values scored
-		int counter = 0;
-		
+        int counter = 0;
+
         // points to cell in which last entry was scored
         // typename T::iterator it;
 
@@ -31,27 +39,28 @@ class QwixxRow {
 
         Colour getColour() const;
 
-        // TODO: should be removed eventually
-        T getContainer() {
-            return qwixxContainer;
-        }
-
-        // helper tests if row contains value
-        bool contains(const RollOfDice &rod) const;
-
         //+= operator to add RollOfDice of size 2, error checking throw exception on error
         QwixxRow<T,C>& operator+=(const RollOfDice& rod) {
+            std::stringstream errmsg;
             int val = static_cast<int>(rod);
-            if (!rod.size() == 2)
-                throw "Can't add more than two dice to QwixxRow";
+            if (!rod.size() == 2) {
+                errmsg << "Can't add more than two dice to QwixxRow" << std::endl;
+                throw errmsg.str();
+            }
+
             if ((C == Colour::RED) || (C == Colour::YELLOW)) {
-                if ((last != 0) && (last > val))
-                    throw "Can't score in this QwixxRow";
+                if ((last != 0) && (last >= val)) {
+                    errmsg << "Can't score " << val << " in row "
+                           << colour_to_string(C) << std::endl;
+                    throw errmsg.str();
+                }
             }
             else if ((C == Colour::BLUE) || (C == Colour::GREEN)) {
-                if ((last != 0) && (last < val))
-                    throw "Can't score in this QwixxRow";
-
+                if ((last != 0) && (last <= val)) {
+                    errmsg << "Can't score " << val << " in row "
+                           << colour_to_string(C) << std::endl;
+                    throw errmsg.str();
+                }
             } else throw "trying to add to invalid row";
 
             for (auto &v : qwixxContainer) {
@@ -61,10 +70,12 @@ class QwixxRow {
                     v = 0;
                 }
             }
-            if (((C == Colour::RED) || (C == Colour::YELLOW) && (last == 12) && (counter >= 5)) ||
-				((C == Colour::BLUE) || (C == Colour::GREEN) && (last == 2) && (counter >= 5))) {
+            if ((((C == Colour::RED) || (C == Colour::YELLOW)) && (last == 12) && (counter >= 5)) ||
+                    (((C == Colour::BLUE) || (C == Colour::GREEN)) && (last == 2) && (counter >= 5))) {
                 locked = true;
-            }             
+                std::cout << "locking since colour: " << colour_to_string(C) << std::endl;
+                std::cout << "last: " << last << " counter: " << counter << std::endl;
+            }
             return *this;
         }
 
@@ -73,20 +84,20 @@ class QwixxRow {
             return last;
         }
 
-		//get counter
-		int getCounter() const {
-			return counter;
-		}
+        //get counter
+        int getCounter() const {
+            return counter;
+        }
 
-		//remove this later set counter
-		/*void setCounter(int i) {
-			counter = i;
-		}*/
+        //remove this later set counter
+        /*void setCounter(int i) {
+        	counter = i;
+        }*/
 
-		//get locked
-		bool getLocked() const {
-			return locked;
-		}
+        //get locked
+        bool getLocked() const {
+            return locked;
+        }
 
         // methods that return iterators to container
         // allowing for range loops
@@ -112,7 +123,7 @@ class QwixxRow {
             return qwixxContainer.cend();
         }
         bool operator!() const {
-            return !locked;
+            return locked;
         }
 
         template <typename T1, const Colour C1>
@@ -152,19 +163,13 @@ std::ostream& operator<<(std::ostream& os, const QwixxRow<T, C>& qr) {
 
 
     os << std::left << std::setw(10) << "" << line1.str() << "---" << std::endl;
-	if (qr.getLocked() == true) {
-		os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " L " << std::endl;
-	}
+    if (qr.getLocked() == true) {
+        os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " L " << std::endl;
+    }
 
-	else {
-		os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " U " << std::endl;
-	}
-	os << std::setw(10) << "" << line3.str() << "---" << std::endl;
+    else {
+        os << std::setw(10) << colour_to_string(qr.getColour()) << line2.str() << " U " << std::endl;
+    }
+    os << std::setw(10) << "" << line3.str() << "---" << std::endl;
     return os;
-}
-
-template <typename T, const Colour C>
-bool QwixxRow<T,C>::contains(const RollOfDice &rod) const {
-    auto elem = std::find(qwixxContainer.begin(), qwixxContainer.end(), static_cast<int>(rod));
-    return (elem != qwixxContainer.end());
 }

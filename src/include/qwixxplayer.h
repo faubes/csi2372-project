@@ -12,6 +12,7 @@
 #include "gameui.h"
 #include "player.h"
 #include "qwixxscoresheet.h"
+#include <set>
 
 class QwixxPlayer : public Player {
         
